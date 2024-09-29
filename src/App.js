@@ -19,7 +19,7 @@ import Sidenav from "examples/Sidenav";
 import theme from "assets/theme";
 
 // Material Dashboard 2 React routes
-import routes from "routes";
+import routes from "DashBoardRoutes.js";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
