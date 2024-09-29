@@ -19,7 +19,8 @@ import Sidenav from "examples/Sidenav";
 import theme from "assets/theme";
 
 // Material Dashboard 2 React routes
-import routes from "DashBoardRoutes.js";
+import routes from "routes";
+import DashboardRoutes from "DashBoardRoutes.js";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -97,7 +98,7 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             brand={provider}
-            routes={routes}
+            routes={DashboardRoutes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
