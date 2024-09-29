@@ -1,0 +1,76 @@
+:root{
+    --maintheme-color:#F46C34;
+    --secondtheme-color:#1c3c5a;
+    --thirdtheme-color:#183c5c;
+}
+/* Lazy Loading  */
+.lazyParent{
+    min-width: 100vw;
+    min-height: 100vh !important;
+    display: flex;
+    justify-content: center;
+}
+.loader {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+    --dim: 3rem;
+    width: var(--dim);
+    height: var(--dim);
+    position: absolute;
+    animation: spin988 2s linear infinite;
+  }
+  
+  .loader .circle {
+    --dim: 1.2rem;
+    width: var(--dim);
+    height: var(--dim);
+    border-radius: 50%;
+    position: absolute;
+  }
+  
+  .loader .circle:nth-child(1) {
+    background-color: var(--maintheme-color);
+    top: 0;
+    left: 0;
+  }
+  
+  .loader .circle:nth-child(2) {
+    top: 0;
+    background-color: var(--maintheme-color);
+    right: 0;
+  }
+  
+  .loader .circle:nth-child(3) {
+    background-color: var(--secondtheme-color);
+    bottom: 0;
+    left: 0;
+  }
+  
+  .loader .circle:nth-child(4) {
+    background-color: var(--secondtheme-color);
+    bottom: 0;
+    right: 0;
+  }
+  
+  @keyframes spin988 {
+    0% {
+      transform: scale(1) rotate(0);
+    }
+  
+    20%, 25% {
+      transform: scale(1.3) rotate(90deg);
+    }
+  
+    45%, 50% {
+      transform: scale(1) rotate(180deg);
+    }
+  
+    70%, 75% {
+      transform: scale(1.3) rotate(270deg);
+    }
+  
+    95%, 100% {
+      transform: scale(1) rotate(360deg);
+    }
+  }
