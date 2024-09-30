@@ -1,11 +1,14 @@
 
+import { useState } from "react";
 
 
 // @mui material components
 import Card from "@mui/material/Card";
+import Switch from "@mui/material/Switch";
 
 
 // Material Dashboard 2 React components
+import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
@@ -19,7 +22,9 @@ import brand from "assets/images/Provider-Logo.png";
 import { useNavigate } from "react-router-dom";
 function Basic() {
 const navigate = useNavigate()
+const [rememberMe, setRememberMe] = useState(false);
 
+  const handleSetRememberMe = () => setRememberMe(!rememberMe);
   return (
     <BasicLayout image={bgImage}>
       <Card>
@@ -46,7 +51,29 @@ const navigate = useNavigate()
             <MDBox mb={2}>
               <MDInput type="password" label="Password" fullWidth />
             </MDBox>
-    
+            <MDBox display="flex" alignItems="center" ml={-1}>
+              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+              <MDTypography
+                variant="button"
+                fontWeight="regular"
+                color="text"
+                onClick={handleSetRememberMe}
+                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+              >
+                &nbsp;&nbsp;Remember me
+              </MDTypography>
+            </MDBox>
+            <MDBox display="flex" alignItems="center"  ml={-1}>
+              <MDTypography
+                variant="button"
+                fontWeight="regular"
+                color="text"
+                onClick={()=>navigate('/authentication/reset')}
+                sx={{ cursor: "pointer", userSelect: "none",  }}
+              >
+                &nbsp;&nbsp; Forget Password
+              </MDTypography>
+            </MDBox>
             <MDBox mt={4} mb={1} onClick={()=>navigate('/dashboard')}>
               <MDButton variant="gradient" color="primary" fullWidth>
                 sign in

@@ -17,6 +17,7 @@ const NotificationsLazy = lazy(() => import("layouts/notifications"));
 const ProfileLazy = lazy(() => import("layouts/profile"));
 const SignInLazy = lazy(() => delayForDemo(import("layouts/authentication/sign-in")));
 const SignUpLazy = lazy(() => import("layouts/authentication/sign-up"));
+const Reset = lazy(() => import("layouts/authentication/reset-password/cover"));
 
 const routes = [
   {
@@ -100,6 +101,18 @@ const routes = [
     component: (
       <Suspense fallback={<LazyLoader />}>
         <SignUpLazy />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "Reset",
+    key: "sign-up",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/authentication/reset",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <Reset />
       </Suspense>
     ),
   },
