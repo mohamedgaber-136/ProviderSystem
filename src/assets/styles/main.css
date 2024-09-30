@@ -2,9 +2,9 @@
   scroll-behavior: smooth;
 }
 :root{
-    --maintheme-color:#F46C34;
-    --secondtheme-color:#1c3c5a;
-    --thirdtheme-color:#183c5c;
+  --maintheme-color:#F46C34;
+  --secondtheme-color:#1c3c5a;
+  --thirdtheme-color:#183c5c;
 }
 /* Lazy Loading  */
 .lazyParent{

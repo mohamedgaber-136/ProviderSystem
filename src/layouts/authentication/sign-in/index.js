@@ -20,10 +20,30 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/5_aasasq.jpg";
 import brand from "assets/images/Provider-Logo.png";
 import { useNavigate } from "react-router-dom";
+// import { setUser } from "Redux/authSlice";
+// import { useDispatch } from 'react-redux';
+import axios from 'axios';
 function Basic() {
 const navigate = useNavigate()
+// const dispatch= useDispatch()
 const [rememberMe, setRememberMe] = useState(false);
-
+// LoginFunction  -------------------------
+// const login = async (values) => {
+//   try {
+//     const response = await axios.post(
+//       'https://tawreed.thebrandmakerz.com/api/loginUser',
+//       values,
+//       { headers: { 'Content-Type': 'application/json' } }
+//     );
+   
+//     // setToken presist state ---------------------------
+//     dispatch(setUser({accessToken:response.data.data.access_token,user:response.data.data.user}))
+//     navigate(-1)
+//     setCheckLogin(true)
+//   } catch (error) {
+//     setCheckLogin(false)
+//   }
+// };
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   return (
     <BasicLayout image={bgImage}>
