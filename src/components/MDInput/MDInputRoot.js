@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
@@ -40,6 +25,7 @@ export default styled(TextField)(({ theme, ownerState }) => {
 
     "& .MuiInputLabel-root.Mui-focused": {
       color: colorError.main,
+      fontWeight: "bold", // Make label bold when focused
     },
   });
 
@@ -59,6 +45,7 @@ export default styled(TextField)(({ theme, ownerState }) => {
 
     "& .MuiInputLabel-root.Mui-focused": {
       color: colorSuccess.main,
+      fontWeight: "bold", // Make label bold when focused
     },
   });
 
@@ -67,5 +54,10 @@ export default styled(TextField)(({ theme, ownerState }) => {
     pointerEvents: disabled ? "none" : "auto",
     ...(error && errorStyles()),
     ...(success && successStyles()),
+
+    // Apply the bold label when focused for normal fields
+    "& .MuiInputLabel-root.Mui-focused": {
+      fontWeight: "bold",
+    },
   };
 });
