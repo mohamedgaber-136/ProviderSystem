@@ -12,6 +12,7 @@ async function delayForDemo(promise) {
 // Lazy load components
 const DashboardLazy = lazy(() => import("layouts/dashboard"));
 const TablesLazy = lazy(() => import("layouts/tables"));
+const B2BUsersLazy = lazy(() => import("layouts/b2BUsers"));
 const BillingLazy = lazy(() => import("layouts/billing"));
 const NotificationsLazy = lazy(() => import("layouts/notifications"));
 const ProfileLazy = lazy(() => import("layouts/profile"));
@@ -50,18 +51,18 @@ const DashBoardRoutes = [
         icon: <Icon fontSize="small">person</Icon>,
         component: (
           <Suspense fallback={<LazyLoader />}>
-            <TablesLazy />
+            <B2BUsersLazy />
           </Suspense>
         ),
       },
       {
         name: "B2B Users",
         key: "b2b-users",
-        route: "/dashboard/b2b-users",
+        route: "/UsersManagemnt/b2b-users",
         icon: <Icon fontSize="small">business</Icon>,
         component: (
           <Suspense fallback={<LazyLoader />}>
-            <TablesLazy />
+            <B2BUsersLazy />
           </Suspense>
         ),
       },

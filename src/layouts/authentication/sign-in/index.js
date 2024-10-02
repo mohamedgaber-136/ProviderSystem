@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 // import { setUser } from "Redux/authSlice";
 // import { useDispatch } from 'react-redux';
 import axios from "axios";
+import FilterField from "components/FilterField";
 function Basic() {
   const navigate = useNavigate();
   // const dispatch= useDispatch()
@@ -45,7 +46,6 @@ function Basic() {
     <BasicLayout image={bgImage}>
       <Card>
         <MDBox
-          variant="white"
           bgColor="white"
           borderRadius="lg"
           coloredShadow="info"
@@ -60,37 +60,51 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput error={false} success={true} fullWidth  type="text"
+                label="Email"
+                autoComplete="username"  />
+          
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput
+                type="password"
+                label="Password"
+                fullWidth
+                autoComplete="current-password" // Fixed spelling here
+
+              />
             </MDBox>
-            <MDBox display="flex" alignItems="center" justifyContent='space-between' ml={-1}>
-            <MDBox display="flex" alignItems="center"  ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                 fontSize='1rem'
-                onClick={handleSetRememberMe}
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;Remember me
-              </MDTypography>
+            <MDBox
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+              ml={-1}
+            >
+              <MDBox display="flex" alignItems="center" ml={-1}>
+                <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+                <MDTypography
+                  variant="button"
+                  fontWeight="regular"
+                  textAlign="center"
+                  color="text"
+                  onClick={handleSetRememberMe}
+                  sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+                >
+                  &nbsp;&nbsp;Remember me
+                </MDTypography>
               </MDBox>
               <MDTypography
                 variant="button"
                 fontWeight="regular"
                 color="text"
-                 fontSize='1rem'
+                textAlign="center"
                 onClick={() => navigate("/authentication/reset")}
                 sx={{ cursor: "pointer", userSelect: "none" }}
               >
                 &nbsp;&nbsp; Forget Password
               </MDTypography>
             </MDBox>
-            
+
             <MDBox mt={4} mb={1} onClick={() => navigate("/dashboard")}>
               <MDButton variant="gradient" color="primary" fullWidth>
                 sign in

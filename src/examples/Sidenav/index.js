@@ -239,7 +239,7 @@ Sidenav.propTypes = {
   ]),
   brand: PropTypes.string,
   brandName: PropTypes.string.isRequired,
-  routes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  routes: PropTypes.any.isRequired,
 };
 
 export default Sidenav;

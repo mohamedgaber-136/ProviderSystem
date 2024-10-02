@@ -18,13 +18,13 @@ const ProfileLazy = lazy(() => import("layouts/profile"));
 const SignInLazy = lazy(() => delayForDemo(import("layouts/authentication/sign-in")));
 const SignUpLazy = lazy(() => import("layouts/authentication/sign-up"));
 const Reset = lazy(() => import("layouts/authentication/reset-password/cover"));
+const B2BUsersLazy = lazy(() => import("layouts/b2BUsers"));
 
 const routes = [
   {
     type: "collapse",
     name: "Dashboard",
     key: "dashboard",
-    icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: (
       <Suspense fallback={<LazyLoader />}>
@@ -36,7 +36,6 @@ const routes = [
     type: "collapse",
     name: "Tables",
     key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
     component: (
       <Suspense fallback={<LazyLoader />}>
@@ -48,7 +47,6 @@ const routes = [
     type: "collapse",
     name: "Billing",
     key: "billing",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
     component: (
       <Suspense fallback={<LazyLoader />}>
@@ -60,7 +58,6 @@ const routes = [
     type: "collapse",
     name: "Notifications",
     key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
     route: "/notifications",
     component: (
       <Suspense fallback={<LazyLoader />}>
@@ -113,6 +110,18 @@ const routes = [
     component: (
       <Suspense fallback={<LazyLoader />}>
         <Reset />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "B2b",
+    key: "B2b Users",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagemnt/b2b-users",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <B2BUsersLazy />
       </Suspense>
     ),
   },

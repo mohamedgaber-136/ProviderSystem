@@ -23,7 +23,7 @@ import routes from "routes";
 import DashboardRoutes from "DashBoardRoutes.js";
 
 // Material Dashboard 2 React contexts
-import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
+import { useMaterialUIController, setMiniSidenav } from "context";
 
 // Images
 import provider from "assets/images/Provider-Logo.png";
@@ -61,8 +61,6 @@ export default function App() {
     }
   };
 
-  // Change the openConfigurator state
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
   // Setting the dir attribute for the body element
   useEffect(() => {
