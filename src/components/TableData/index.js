@@ -62,7 +62,7 @@ export default function EnhancedTable({ data, FieldAarray }) {
     };
 
     return (
-      <TableHead sx={{ display: "table-header-group" }}>
+      <TableHead sx={{ display: "table-header-group",backgroundColor:'#1c3c5a', }}>
         <TableRow>
           {headCells.map((headCell) => (
             <TableCell
@@ -151,7 +151,7 @@ export default function EnhancedTable({ data, FieldAarray }) {
       <Paper sx={{ width: "100%", mb: 2 }}>
         <Grid
           container
-          gap={1}
+          gap={2}
           padding={3}
           alignItems={"center"}
           justifyContent={"start"}
