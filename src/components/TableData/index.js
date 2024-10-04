@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,28 +8,24 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
 import { visuallyHidden } from "@mui/utils";
 import { styled } from "@mui/material/styles";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { useMemo, useState } from "react";
-import { Button, Container, Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { SearchField } from "components/SearchField";
 import FilterField from "components/FilterField";
-export default function EnhancedTable({ data, FieldAarray }) {
+import LongMenu from "components/ActionIcon";
+export default function EnhancedTable({ initialData, FieldAarray }) {
   const [order, setOrder] = useState("asc");
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [orderBy, setOrderBy] = useState(Object.keys(data[0] || {})[0] || "");
-
+  const [orderBy, setOrderBy] = useState(
+    Object.keys(initialData[0] || {})[0] || ""
+  );
+  const [filterdData, setFilteredData] = useState(initialData);
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) return -1;
     if (b[orderBy] > a[orderBy]) return 1;
@@ -53,7 +48,7 @@ export default function EnhancedTable({ data, FieldAarray }) {
     }));
   };
 
-  const headCells = createHeadCells(data);
+  const headCells = createHeadCells(initialData);
 
   function EnhancedTableHead(props) {
     const { order, orderBy, onRequestSort } = props;
@@ -62,7 +57,9 @@ export default function EnhancedTable({ data, FieldAarray }) {
     };
 
     return (
-      <TableHead sx={{ display: "table-header-group",backgroundColor:'#1c3c5a', }}>
+      <TableHead
+        sx={{ display: "table-header-group", backgroundColor: "#1c3c5a" }}
+      >
         <TableRow>
           {headCells.map((headCell) => (
             <TableCell
@@ -85,7 +82,11 @@ export default function EnhancedTable({ data, FieldAarray }) {
                 ) : null}
               </TableSortLabel>
             </TableCell>
+        
           ))}
+              <TableCell>
+              Actions
+            </TableCell>
         </TableRow>
       </TableHead>
     );
@@ -118,10 +119,10 @@ export default function EnhancedTable({ data, FieldAarray }) {
 
   const visibleRows = useMemo(
     () =>
-      [...data]
+      [...filterdData]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage, data]
+    [order, orderBy, page, rowsPerPage, filterdData]
   );
 
   const handleChangePage = (event, newPage) => setPage(newPage);
@@ -145,6 +146,42 @@ export default function EnhancedTable({ data, FieldAarray }) {
       })
     ).isRequired,
   };
+  const checkKeys = (key, row) => {
+    if (key === "status") {
+      return (
+        <StyledTableCell align="center" key={key}>
+          <Button
+            style={{
+              backgroundColor: row[key] === "active" ? "green" : "red",
+              color: "#fff",
+              padding: 2,
+            }}
+          >
+            {row[key]}
+          </Button>
+        </StyledTableCell>
+      );
+    } else if (key === "logo") {
+      return (
+        <StyledTableCell align="left" key={key}>
+          <img
+            src={row[key]} // Assuming `row[key]` contains the image URL for the logo
+            alt="logo"
+            style={{ width: "50px", height: "50px", borderRadius: "50%" }} // You can adjust the size accordingly
+          />
+        </StyledTableCell>
+      );
+    } else {
+      return (
+        <StyledTableCell
+          align={typeof row[key] === "number" ? "left" : "left"}
+          key={key}
+        >
+          <Button>{row[key]}</Button>
+        </StyledTableCell>
+      );
+    }
+  };
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -157,11 +194,15 @@ export default function EnhancedTable({ data, FieldAarray }) {
           justifyContent={"start"}
         >
           <Grid item xs={12}>
-            <SearchField FindData={visibleRows} />
+            <SearchField setData={setFilteredData} initialData={initialData} />
           </Grid>
           {FieldAarray.map((item, index) => (
             <Grid key={index} xs={5} md={2}>
-              <FilterField FilterArea={item} />
+              <FilterField
+                FilterArea={item}
+                setData={setFilteredData}
+                initialData={initialData}
+              />
             </Grid>
           ))}
         </Grid>
@@ -173,49 +214,28 @@ export default function EnhancedTable({ data, FieldAarray }) {
               orderBy={orderBy}
               onSelectAllClick={true}
               onRequestSort={handleRequestSort}
-              rowCount={data.length}
+              rowCount={initialData.length}
               headCells={headCells}
             />
-            {/* {Creating Dynamic HeadCells ----------------------------}  */}
+            {/* {Creating Dynamic tableData ----------------------------}  */}
 
             <TableBody>
               {visibleRows.map((row, index) => (
-                <StyledTableRow hover key={row.id + index}>
-                  {Object.keys(row).map((key) =>
-                    key == "status" ? (
-                      <StyledTableCell
-                        align={typeof row[key] === "number" ? "left" : "left"}
-                        key={key}
-                      >
-                        <Button
-                          style={{
-                            backgroundColor:
-                              row[key] == "active" ? "green" : "red",
-                            color: "#fff",
-                            padding: 2,
-                          }}
-                        >
-                          {row[key]}
-                        </Button>
-                      </StyledTableCell>
-                    ) : (
-                      <StyledTableCell
-                        align={typeof row[key] === "number" ? "left" : "left"}
-                        key={key}
-                      >
-                        <Button>{row[key]}</Button>
-                      </StyledTableCell>
-                    )
-                  )}
+                <StyledTableRow hover key={`row-${index}`}>
+                  {Object.keys(row).map((key) => checkKeys(key, row))}
+                  <StyledTableCell>
+                <LongMenu/>
+              </StyledTableCell>
                 </StyledTableRow>
               ))}
+              
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={data.length}
+          count={filterdData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -226,6 +246,8 @@ export default function EnhancedTable({ data, FieldAarray }) {
   );
 }
 EnhancedTable.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired, // Validate 'data' as an array of objects
-  FieldAarray: PropTypes.arrayOf(PropTypes.any).isRequired, // Validate 'FieldAarray' as an array (could specify type inside 'any')
+  initialData: PropTypes.arrayOf(PropTypes.object).isRequired, // Validate 'data' as an array of objects
+  FieldAarray: PropTypes.arrayOf(PropTypes.any).isRequired,
+  setData: PropTypes.any, // Validate 'setData'
+  initialData: PropTypes.any, // Validate 'initialData ' as an array (could specify type inside 'any')
 };

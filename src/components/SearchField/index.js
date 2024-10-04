@@ -1,27 +1,50 @@
 import MDInput from 'components/MDInput';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
-export const SearchField = ({FindData}) => {
-    const [searchQuery, setSearchQuery] =useState(""); 
-    // Test Data 
-    // Search query state
-    const filteredRows = FindData.filter((row) => {
-        return Object.values(row).some((value) =>
-          value.toString().toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      });
-      console.log(filteredRows)
+export const SearchField = ({ setData, initialData }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  // Memoize initialData to avoid unnecessary re-renders
+  const memoizedInitialData = useMemo(() => initialData, [initialData]);
+
+  useEffect(() => {
+    let filteredRows = memoizedInitialData;
+
+    if (searchQuery) {
+      filteredRows = memoizedInitialData.filter((row) =>
+        Object.values(row).some((value) =>
+          value?.toString().toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+    }
+
+    // Only update if the data has changed to avoid infinite loops
+    setData((prevData) => {
+      if (JSON.stringify(prevData) !== JSON.stringify(filteredRows)) {
+        return filteredRows;
+      }
+      return prevData;
+    });
+  }, [searchQuery, memoizedInitialData, setData]);
+
   return (
     <MDInput
-    label="Search"
-    value={searchQuery}
-    type="search" 
-    autoComplete='search'
-    onChange={(e) => setSearchQuery(e.target.value)}
-    fullWidth />
-  )
-}
+      label="Search"
+      value={searchQuery}
+      type="search"
+      autoComplete="search"
+      onChange={handleSearchChange}
+      fullWidth
+    />
+  );
+};
+
 SearchField.propTypes = {
-  FindData: PropTypes.any
+  initialData: PropTypes.array.isRequired,
+  setData: PropTypes.func.isRequired,
 };

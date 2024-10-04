@@ -19,6 +19,9 @@ const SignInLazy = lazy(() => delayForDemo(import("layouts/authentication/sign-i
 const SignUpLazy = lazy(() => import("layouts/authentication/sign-up"));
 const Reset = lazy(() => import("layouts/authentication/reset-password/cover"));
 const B2BUsersLazy = lazy(() => import("layouts/b2BUsers"));
+const B2CUsersLazy = lazy(() => import("layouts/B2CUsers"));
+const IndividualUsersLazy = lazy(() => import("layouts/IndividualUsers"));
+const AsfarUsersLazy = lazy(() => import("layouts/AsfarUsers"));
 
 const routes = [
   {
@@ -122,6 +125,42 @@ const routes = [
     component: (
       <Suspense fallback={<LazyLoader />}>
         <B2BUsersLazy />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "B2C",
+    key: "B2C Users",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagemnt/b2c-users",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <B2CUsersLazy />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "Individual Users",
+    key: "Individual Users",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagemnt/Individual-users",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <IndividualUsersLazy />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "Asfar Users",
+    key: "Asfar Users",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagemnt/asfar-users",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <AsfarUsersLazy />
       </Suspense>
     ),
   },

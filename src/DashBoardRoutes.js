@@ -45,48 +45,34 @@ const DashBoardRoutes = [
     noCollapse: false, // This will allow it to be expanded
     children: [
       {
+        
         name: "Asfar Users",
-        key: "asfar-users",
-        route: "/dashboard/asfar-users",
+        key: "UsersManagemnt/asfar-users",
+        route: "/UsersManagemnt/asfar-users",
         icon: <Icon fontSize="small">person</Icon>,
-        component: (
-          <Suspense fallback={<LazyLoader />}>
-            <B2BUsersLazy />
-          </Suspense>
-        ),
+        
       },
-      {
+      {    type: "collapse",
+
         name: "B2B Users",
-        key: "b2b-users",
+        key: "UsersManagemnt/b2b-users",
         route: "/UsersManagemnt/b2b-users",
         icon: <Icon fontSize="small">business</Icon>,
-        component: (
-          <Suspense fallback={<LazyLoader />}>
-            <B2BUsersLazy />
-          </Suspense>
-        ),
+     
       },
       {
         name: "B2C Users",
-        key: "b2c-users",
-        route: "/dashboard/b2c-users",
+        key: "UsersManagemnt/b2c-users",
+        route: "/UsersManagemnt/b2c-users",
         icon: <Icon fontSize="small">shopping_cart</Icon>,
-        component: (
-          <Suspense fallback={<LazyLoader />}>
-            <TablesLazy />
-          </Suspense>
-        ),
+      
       },
       {
         name: "Individual Users",
-        key: "Individual-users",
-        route: "/dashboard/Individual-users",
+        key: "UsersManagemnt/Individual-users",
+        route: "/UsersManagemnt/Individual-users",
         icon: <Icon fontSize="small">person</Icon>,
-        component: (
-          <Suspense fallback={<LazyLoader />}>
-            <TablesLazy />
-          </Suspense>
-        ),
+      
       },
     ],
   },
