@@ -1,52 +1,48 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback, memo } from "react";
 import { MenuItem, FormControl, InputLabel } from "@mui/material";
 import PropTypes from "prop-types";
-import MDSelect from "components/MDSelect";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from "@mui/material/styles";
+import MDSelect from "components/MDSelect";
 
-const FilterField = ({ FilterArea, setData, initialData }) => {
+const FilterField = ({ FilterArea, setData, initialData ,data}) => {
   const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
     backgroundColor: theme.palette.common.white,
     padding: "0 8px",
     zIndex: 1,
   }));
+  const [selectedValue, setSelectedValue] = useState("All");
 
-  // Set the default selected value to the first item or "All" if the list is empty
-  const [selectedValue, setSelectedValue] = useState( "All"  );
-
-  // Memoize initialData to prevent unnecessary re-renders
   const memoizedInitialData = useMemo(() => initialData, [initialData]);
 
+  const updateData = useCallback(
+    (data) => setData(data),
+    [setData]
+  );
+
   useEffect(() => {
-    let filteredData = memoizedInitialData;
+    let currentData = memoizedInitialData;
 
-    // Apply filtering only if a value is selected and inputLabel exists in initialData objects
-    if (memoizedInitialData.length > 0) {
-      if (selectedValue.toLowerCase() === "all") {
-        // If "All" is selected, show all data
-        filteredData = memoizedInitialData;
-      } else {
-        filteredData = memoizedInitialData.filter((item) => {
-          const key = FilterArea.inputLabel.trim(); // Remove any spaces around the inputLabel
-          return item[key]?.toString().toLowerCase() === selectedValue.toLowerCase();
-        });
-      }
+    if (selectedValue.toLowerCase() !== "all") {
+      currentData = currentData.filter((item) => {
+        const key = FilterArea.inputLabel.trim();
+        return item[key]?.toString().toLowerCase() === selectedValue.toLowerCase();
+      });
     }
+    updateData(currentData);
 
-    // Set filtered data
-    setData(filteredData);
-  }, [selectedValue, memoizedInitialData, setData, FilterArea.inputLabel]);
+  }, [selectedValue, memoizedInitialData, updateData, FilterArea.inputLabel]);
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth  variant="standard">
       <StyledInputLabel>{FilterArea.inputLabel}</StyledInputLabel>
       <MDSelect
         value={selectedValue}
         name="FilterType"
         onChange={(e) => setSelectedValue(e.target.value)}
         fullWidth
+        IconComponent={ArrowDropDownIcon}
       >
-        {/* Include an "All" option in the dropdown */}
         <MenuItem value="All">All</MenuItem>
         {FilterArea?.data?.map((item) => (
           <MenuItem key={item.value} value={item.value}>
@@ -58,18 +54,18 @@ const FilterField = ({ FilterArea, setData, initialData }) => {
   );
 };
 
-// Define PropTypes for the FilterField
 FilterField.propTypes = {
   FilterArea: PropTypes.shape({
-    inputLabel: PropTypes.string.isRequired, // The key to filter by
+    inputLabel: PropTypes.string.isRequired,
     data: PropTypes.arrayOf(
       PropTypes.shape({
-        value: PropTypes.string.isRequired, // The value to filter on
+        value: PropTypes.string.isRequired,
       })
     ).isRequired,
   }).isRequired,
-  setData: PropTypes.func.isRequired, // The function to update filtered data
-  initialData: PropTypes.arrayOf(PropTypes.object).isRequired, // Initial data to filter
+  setData: PropTypes.func.isRequired,
+  initialData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data:PropTypes.any,
 };
 
-export default FilterField;
+export default memo(FilterField);

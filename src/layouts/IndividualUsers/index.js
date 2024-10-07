@@ -207,13 +207,16 @@ function IndividualUsers() {
       status: "active",
     },
   ];
+  const BtnAdd ='Add Individual User '
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <TableData 
       FieldAarray={FieldAarray}
         initialData={initialData} // Pass the full initial data set/
-        />
+        BtnAdd={BtnAdd}
+      />
     </DashboardLayout>
   );
 }

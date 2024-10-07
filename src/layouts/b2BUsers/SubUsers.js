@@ -2,16 +2,13 @@
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import TableData from "components/TableData";
-import GroupIcon from '@mui/icons-material/Group';
 import PaymentIcon from '@mui/icons-material/Payment';
 import SecurityIcon from '@mui/icons-material/Security';
 import BookIcon from '@mui/icons-material/Book';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import swal from 'sweetalert';
-
-function B2BUsers() {
+function SubUsers() {
     const FieldAarray = [
       {
         inputLabel:"Status",
@@ -223,11 +220,6 @@ function B2BUsers() {
     ]
     const ActionsList = [
       {
-        icon: <GroupIcon />,
-        content: 'Sub Users',
-        action: '/UsersManagemnt/b2b-users/:Id/SubUsers'
-      },
-      {
         icon: <PaymentIcon />,
         content: 'Payment Options',
         action: ''
@@ -255,20 +247,7 @@ function B2BUsers() {
       {
         icon: <DeleteIcon />,
         content: 'Delete User',
-        action: (Id)=>swal({
-          title: `Delete User ${Id}`,
-          text: "If You Sure Click Ok",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-            swal(`User ${Id} Deleted`, {
-              icon: "success",
-            });
-          } 
-        })
+        action: ''
       },
     ];
   return (
@@ -282,4 +261,4 @@ function B2BUsers() {
     </DashboardLayout>
   );
 }
-export default B2BUsers;
+export default SubUsers;

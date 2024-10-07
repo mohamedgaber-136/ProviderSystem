@@ -12,16 +12,18 @@ import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
 import { styled } from "@mui/material/styles";
 import { useMemo, useState } from "react";
-import { Button, Grid } from "@mui/material";
+import { Button, Container, Grid, IconButton } from "@mui/material";
 import { SearchField } from "components/SearchField";
 import FilterField from "components/FilterField";
 import LongMenu from "components/ActionIcon";
-export default function EnhancedTable({ initialData, FieldAarray }) {
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { Collapse } from "@mui/material"; // Import Collapse
+export default function EnhancedTable({ initialData, FieldAarray,ActionsList }) {
   const [order, setOrder] = useState("asc");
   const [selected, setSelected] = useState([]);
+  const [showFilters, setShowFilters] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
   const [orderBy, setOrderBy] = useState(
     Object.keys(initialData[0] || {})[0] || ""
   );
@@ -58,37 +60,34 @@ export default function EnhancedTable({ initialData, FieldAarray }) {
 
     return (
       <TableHead
-        sx={{ display: "table-header-group", backgroundColor: "#1c3c5a" }}
-      >
-        <TableRow>
-          {headCells.map((headCell) => (
-            <TableCell
-              key={headCell.id}
-              align={headCell.numeric ? "left" : "left"}
-              sortDirection={orderBy === headCell.id ? order : false}
+      sx={{ display: "table-header-group", backgroundColor: "#1c3c5a" }}
+    >
+      <TableRow>
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            align={headCell.numeric ? "center" : "center"}
+            sortDirection={orderBy === headCell.id ? order : false}
+            sx={{ borderRadius: 0 }} // This line removes the border radius
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : "asc"}
+              onClick={createSortHandler(headCell.id)}
             >
-              <TableSortLabel
-                active={orderBy === headCell.id}
-                direction={orderBy === headCell.id ? order : "asc"}
-                onClick={createSortHandler(headCell.id)}
-              >
-                {headCell.label}
-                {orderBy === headCell.id ? (
-                  <Box component="span" sx={visuallyHidden}>
-                    {order === "desc"
-                      ? "sorted descending"
-                      : "sorted ascending"}
-                  </Box>
-                ) : null}
-              </TableSortLabel>
-            </TableCell>
-        
-          ))}
-              <TableCell>
-              Actions
-            </TableCell>
-        </TableRow>
-      </TableHead>
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={visuallyHidden}>
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                </Box>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+        <TableCell sx={{ borderRadius: 0 }}>Actions</TableCell>
+      </TableRow>
+    </TableHead>
+    
     );
   }
 
@@ -147,23 +146,23 @@ export default function EnhancedTable({ initialData, FieldAarray }) {
     ).isRequired,
   };
   const checkKeys = (key, row) => {
-    if (key === "status") {
+    if (key === "Status") {
       return (
         <StyledTableCell align="center" key={key}>
           <Button
             style={{
-              backgroundColor: row[key] === "active" ? "green" : "red",
+              backgroundColor: row[key] === "Active" ? "green" : "red",
               color: "#fff",
-              padding: 2,
+              padding: 4,
             }}
           >
             {row[key]}
           </Button>
         </StyledTableCell>
       );
-    } else if (key === "logo") {
+    } else if (key === "Logo") {
       return (
-        <StyledTableCell align="left" key={key}>
+        <StyledTableCell align="center" key={key}>
           <img
             src={row[key]} // Assuming `row[key]` contains the image URL for the logo
             alt="logo"
@@ -174,7 +173,7 @@ export default function EnhancedTable({ initialData, FieldAarray }) {
     } else {
       return (
         <StyledTableCell
-          align={typeof row[key] === "number" ? "left" : "left"}
+          align={typeof row[key] === "number" ? "center" : "center"}
           key={key}
         >
           <Button>{row[key]}</Button>
@@ -182,31 +181,49 @@ export default function EnhancedTable({ initialData, FieldAarray }) {
       );
     }
   };
-
   return (
     <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
+      <Box  sx={{ display: "flex", justifyContent: "space-between",marginBlock:2}}>
+
+            <SearchField setData={setFilteredData} initialData={initialData} />
+            <IconButton title="Filter list" onClick={() => setShowFilters(!showFilters)}>
+              <FilterListIcon />
+            </IconButton>
+      </Box>
+  
+         
+       
+      <Collapse in={showFilters} timeout="auto" unmountOnExit>
+      <Paper sx={{ width: "100%", mb: 2, borderRadius: 1, overflow: "hidden", p: 2 }}>
         <Grid
           container
-          gap={2}
-          padding={3}
-          alignItems={"center"}
-          justifyContent={"start"}
+          spacing={2}
+          alignItems="center"
+          justifyContent="flex-start"
         >
-          <Grid item xs={12}>
-            <SearchField setData={setFilteredData} initialData={initialData} />
-          </Grid>
           {FieldAarray.map((item, index) => (
-            <Grid key={index} xs={5} md={2}>
+            <Grid 
+              key={index} 
+              item 
+              xs={12} 
+              sm={6} 
+              md={4} 
+              lg={3} 
+            >
               <FilterField
                 FilterArea={item}
                 setData={setFilteredData}
-                initialData={initialData}
+                initialData={filterdData} 
+                data={initialData}
               />
             </Grid>
           ))}
         </Grid>
-        <TableContainer>
+      </Paper>
+    </Collapse>
+  
+      <Paper sx={{ width: "100%", mb: 2, borderRadius: 0, overflow: "hidden" }}>
+        <TableContainer component={Paper} sx={{ borderRadius: 0 }}>
           <Table sx={{ minWidth: 750 }} aria-label="enhanced table">
             <EnhancedTableHead
               numSelected={selected.length}
@@ -217,37 +234,70 @@ export default function EnhancedTable({ initialData, FieldAarray }) {
               rowCount={initialData.length}
               headCells={headCells}
             />
-            {/* {Creating Dynamic tableData ----------------------------}  */}
-
             <TableBody>
-              {visibleRows.map((row, index) => (
+              {visibleRows.length?visibleRows.map((row, index) => (
                 <StyledTableRow hover key={`row-${index}`}>
                   {Object.keys(row).map((key) => checkKeys(key, row))}
                   <StyledTableCell>
-                <LongMenu/>
-              </StyledTableCell>
+                    <LongMenu ActionsList={ActionsList} id={row["Agent ID"]} />
+                  </StyledTableCell>
                 </StyledTableRow>
-              ))}
+              )) :
+              <StyledTableRow hover  >
+                                <StyledTableCell  colSpan={headCells.length + 1}> 
+                                  No Data Found
+                                </StyledTableCell>
+
+            
+            </StyledTableRow>}
               
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={filterdData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+  rowsPerPageOptions={[5, 10, 25]}
+  component="div"
+  count={filterdData.length}
+  rowsPerPage={rowsPerPage}
+  page={page}
+  onPageChange={handleChangePage}
+  onRowsPerPageChange={handleChangeRowsPerPage}
+  sx={{
+    justifyContent: "flex-start", 
+    display: "flex", 
+    "& .MuiTablePagination-toolbar": {
+      margin: 0, // Remove margin from the toolbar
+    },
+    "& .MuiTablePagination-selectRoot": {
+      margin: 0, // Remove margin from the select dropdown
+    },
+    "& .MuiButtonBase-root": {
+      margin: 0, // Remove margin from buttons
+    },
+    "& .MuiTypography-root": {
+      margin: 0, // Remove margin from typography
+    },
+    "& .MuiTablePagination-displayedRows": {
+      margin: 0, // Remove margin from displayed rows
+    },
+    "& div[id^=':r2:']": {
+      margin: 0, // Remove margin for the element with id starting with :r2:
+    },
+    "& .MuiTablePagination-selectLabel": {
+      margin: 0, // Remove margin for select label
+    },
+  }}
+/>
+
       </Paper>
     </Box>
   );
+  
 }
 EnhancedTable.propTypes = {
   initialData: PropTypes.arrayOf(PropTypes.object).isRequired, // Validate 'data' as an array of objects
   FieldAarray: PropTypes.arrayOf(PropTypes.any).isRequired,
   setData: PropTypes.any, // Validate 'setData'
   initialData: PropTypes.any, // Validate 'initialData ' as an array (could specify type inside 'any')
+  ActionsList: PropTypes.array, // Validate
 };

@@ -125,12 +125,14 @@ function B2CUsers() {
       status: "active",
     },
   ];
+   const BtnAdd ='Add B2C User'
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <TableData 
       FieldAarray={FieldAarray}
         initialData={initialData} // Pass the full initial data set/
+        BtnAdd={BtnAdd}
         />
     </DashboardLayout>
   );

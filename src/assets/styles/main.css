@@ -6,6 +6,9 @@
   --secondtheme-color:#1c3c5a;
   --thirdtheme-color:#183c5c;
 }
+table,tbody,tfoot,thead,tr,td,th{
+  border-radius: 0 !important;
+}
 /* Lazy Loading  */
 .lazyParent{
   height: 100vh !important;
@@ -87,7 +90,8 @@ body::-webkit-scrollbar-track
  
 *::-webkit-scrollbar
 {
-	width: 5px;
+	width: 2px;
+  height: 7px;
 	background-color: #F5F5F5;
 }
  
@@ -99,4 +103,7 @@ body::-webkit-scrollbar-track
 }
 th{
   color: white !important;
+}
+.css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root.Mui-active{
+  color:white !important
 }
