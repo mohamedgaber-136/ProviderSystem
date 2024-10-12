@@ -211,36 +211,37 @@ export default function EnhancedTable({
           <FilterListIcon />
         </IconButton>
       </Box>
-
-      <Collapse in={showFilters} timeout="auto" unmountOnExit>
-        <Paper
-          sx={{
-            width: "100%",
-            mb: 2,
-            borderRadius: 1,
-            overflow: "hidden",
-            p: 2,
-          }}
-        >
-          <Grid
-            container
-            spacing={2}
-            alignItems="center"
-            justifyContent="flex-start"
+      {FieldAarray ? (
+        <Collapse in={showFilters} timeout="auto" unmountOnExit>
+          <Paper
+            sx={{
+              width: "100%",
+              mb: 2,
+              borderRadius: 1,
+              overflow: "hidden",
+              p: 2,
+            }}
           >
-            {FieldAarray.map((item, index) => (
-              <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                <FilterField
-                  FilterArea={item}
-                  setData={setFilteredData}
-                  initialData={filterdData}
-                  data={initialData}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Paper>
-      </Collapse>
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              justifyContent="flex-start"
+            >
+              {FieldAarray.map((item, index) => (
+                <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+                  <FilterField
+                    FilterArea={item}
+                    setData={setFilteredData}
+                    initialData={filterdData}
+                    data={initialData}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Paper>
+        </Collapse>
+      ) : null}
 
       <Paper sx={{ width: "100%", mb: 2, borderRadius: 0, overflow: "hidden" }}>
         <TableContainer component={Paper} sx={{ borderRadius: 0 }}>

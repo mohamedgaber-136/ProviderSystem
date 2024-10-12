@@ -251,7 +251,7 @@ function B2BUsers() {
       {
         icon: <AccountBalanceIcon />,
         content: 'Balance Management',
-        action: ''
+        action: "/UsersManagemnt/b2b-users/Agent-Deposit-Management/:Id"
       },
       {
         icon: <EditIcon />,

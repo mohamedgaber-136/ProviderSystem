@@ -1,15 +1,6 @@
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+
 import TableData from "components/TableData";
-import GroupIcon from "@mui/icons-material/Group";
-import PaymentIcon from "@mui/icons-material/Payment";
-import SecurityIcon from "@mui/icons-material/Security";
-import BookIcon from "@mui/icons-material/Book";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import swal from "sweetalert";
-import BlockIcon from "@mui/icons-material/Block";
+
 
 export const Hotels = () => {
   const FieldAarray = [
