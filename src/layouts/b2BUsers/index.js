@@ -10,8 +10,9 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import swal from 'sweetalert';
-
+import BlockIcon from '@mui/icons-material/Block';
 function B2BUsers() {
+  // This Is fields 
     const FieldAarray = [
       {
         inputLabel:"Status",
@@ -225,17 +226,22 @@ function B2BUsers() {
       {
         icon: <GroupIcon />,
         content: 'Sub Users',
-        action: '/UsersManagemnt/b2b-users/:Id/SubUsers'
+        action:'/UsersManagemnt/b2b-users/SubUsers/:Id'
+      },
+      {
+        icon: <BlockIcon />,
+        content: 'De-Active',
+        action: ''
       },
       {
         icon: <PaymentIcon />,
         content: 'Payment Options',
-        action: ''
+        action: '/UsersManagemnt/b2b-users/PaymentOption/:Id'
       },
       {
         icon: <SecurityIcon />,
         content: 'Manage Privileges',
-        action: ''
+        action: '/UsersManagemnt/b2b-users/UpdatePrivileges/:Id'
       },
       {
         icon: <BookIcon />,
@@ -257,7 +263,7 @@ function B2BUsers() {
         content: 'Delete User',
         action: (Id)=>swal({
           title: `Delete User ${Id}`,
-          text: "If You Sure Click Ok",
+          text: "You Sure Click Ok",
           icon: "warning",
           buttons: true,
           dangerMode: true,

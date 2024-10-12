@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ITEM_HEIGHT = 48;
 
-export default function LongMenu({ ActionsList, id }) {
+export default function LongMenu({ ActionsList, row }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -20,12 +20,11 @@ export default function LongMenu({ ActionsList, id }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const handleMenuItemClick = (action) => {
     if (typeof action === 'function') {
-      action(id); // Execute if action is a function (like swal alert)
+      action(row['Company name']); // Execute if action is a function (like swal alert)
     } else if (typeof action === 'string' && action) {
-      const path = action.replace(":Id", id); // Replace :Id with actual id for navigation
+      const path = action.replace(":Id", row['Company name']); // Replace :Id with actual id for navigation
       navigate(path);
     }
     handleClose();
@@ -81,5 +80,5 @@ LongMenu.propTypes = {
       action: PropTypes.string, // Route path as a string
     })
   ).isRequired,
-  id: PropTypes.string.isRequired,
+  row: PropTypes.object.isRequired,
 };

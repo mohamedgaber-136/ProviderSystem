@@ -1,5 +1,3 @@
-
-
 // react-router-dom components
 import { Link, useNavigate } from "react-router-dom";
 
@@ -16,13 +14,14 @@ import MDTypography from "components/MDTypography";
 
 function Breadcrumbs({ icon, title, route, light }) {
   const routes = route.slice(0, -1);
-const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <MDBox mr={{ xs: 0, xl: 8 }}>
       <MuiBreadcrumbs
         sx={{
           "& .MuiBreadcrumbs-separator": {
-            color: ({ palette: { white, grey } }) => (light ? white.main : grey[600]),
+            color: ({ palette: { white, grey } }) =>
+              light ? white.main : grey[600],
           },
         }}
       >
@@ -37,20 +36,20 @@ const navigate = useNavigate()
             <Icon>{icon}</Icon>
           </MDTypography>
         </Link>
-        {routes.map((el,index) => (
-            <MDTypography
-              component="span"
-              variant="button"
-              fontWeight="regular"
-              textTransform="capitalize"
-              color={light ? "white" : "dark"}
-              opacity={light ? 0.8 : 0.5}
-              sx={{ lineHeight: 0 }}
-              key={el}
-        onClick={()=>navigate(-1)}
-            >
-              {el}
-            </MDTypography>
+        {routes.map((el, index) => (
+          <MDTypography
+            component="span"
+            variant="button"
+            fontWeight="regular"
+            textTransform="capitalize"
+            color={light ? "white" : "dark"}
+            opacity={light ? 0.8 : 0.5}
+            sx={{ lineHeight: 0 }}
+            key={el}
+            onClick={() => navigate(-1)}
+          >
+            {el.includes("%20") ? title.replaceAll("%20", " ") : el}
+          </MDTypography>
         ))}
         <MDTypography
           variant="button"
@@ -59,7 +58,9 @@ const navigate = useNavigate()
           color={light ? "white" : "dark"}
           sx={{ lineHeight: 0 }}
         >
-          {title.replace("-", " ")}
+          {title.includes("%20")
+            ? title.replaceAll("%20", " ")
+            : title.replace("-", " ")}{" "}
         </MDTypography>
       </MuiBreadcrumbs>
       <MDTypography
@@ -69,7 +70,9 @@ const navigate = useNavigate()
         color={light ? "white" : "dark"}
         noWrap
       >
-        {title.replace("-", " ")}
+        {title.includes("%20")
+          ? title.replaceAll("%20", " ")
+          : title.replace("-", " ")}
       </MDTypography>
     </MDBox>
   );
