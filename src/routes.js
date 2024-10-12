@@ -26,6 +26,7 @@ const AddNewUsersLazy = lazy(() => import("layouts/AddNewUser"));
 const SubUsersLazy = lazy(() => import("layouts/b2BUsers/SubUsers.js"));
 const PaymentOptionLazy = lazy(() => import("layouts/b2BUsers/PaymentOption.js"));
 const UpdatePrivilegesLazy = lazy(() => import("layouts/b2BUsers/UpdatePrivileges.js"));
+const ViewBookingLazy = lazy(() => import("layouts/b2BUsers/ViewBookings.js"));
 const routes = [
   {
     type: "collapse",
@@ -164,6 +165,18 @@ const routes = [
     component: (
       <Suspense fallback={<LazyLoader />}>
         <UpdatePrivilegesLazy />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "ViewBooking",
+    key: "ViewBooking",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagemnt/b2b-users/ViewBookins/:Id",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <ViewBookingLazy />
       </Suspense>
     ),
   },

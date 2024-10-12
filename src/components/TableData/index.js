@@ -27,7 +27,7 @@ export default function EnhancedTable({
   const [selected, setSelected] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [orderBy, setOrderBy] = useState(
     Object.keys(initialData[0] || {})[0] || ""
   );
@@ -96,7 +96,9 @@ export default function EnhancedTable({
               </TableSortLabel>
             </TableCell>
           ))}
-          <TableCell sx={{ borderRadius: 0 }}>Actions</TableCell>
+          {ActionsList ? (
+            <TableCell sx={{ borderRadius: 0 }}>Actions</TableCell>
+          ) : null}
         </TableRow>
       </TableHead>
     );
@@ -257,9 +259,11 @@ export default function EnhancedTable({
                 visibleRows.map((row, index) => (
                   <StyledTableRow hover key={`row-${index}`}>
                     {Object.keys(row).map((key) => checkKeys(key, row))}
-                    <StyledTableCell>
-                      <LongMenu ActionsList={ActionsList} row={row} />
-                    </StyledTableCell>
+                    {ActionsList ? (
+                      <StyledTableCell>
+                        <LongMenu ActionsList={ActionsList} row={row} />
+                      </StyledTableCell>
+                    ) : null}
                   </StyledTableRow>
                 ))
               ) : (
@@ -273,7 +277,7 @@ export default function EnhancedTable({
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[15, 20, 25]}
           component="div"
           count={filterdData.length}
           rowsPerPage={rowsPerPage}

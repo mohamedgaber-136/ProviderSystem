@@ -1,0 +1,230 @@
+import TableData from "components/TableData";
+
+export const Flights = () => {
+  const FieldAarray = [
+    {
+      inputLabel: "Date & Time ",
+      data: [
+        {
+          value: "One",
+        },
+        {
+          value: "Two",
+        },
+      ],
+    },
+    {
+      inputLabel: "Supplier ",
+      data: [
+        {
+          value: "One",
+        },
+        {
+          value: "Two",
+        },
+      ],
+    },
+    {
+      inputLabel: "Provider Markup",
+      data: [
+        {
+          value: "One",
+        },
+        {
+          value: "Two",
+        },
+      ],
+    },
+    {
+      inputLabel: " Airline",
+      data: [
+        {
+          value: "One",
+        },
+        {
+          value: "Two",
+        },
+      ],
+    },
+    {
+      inputLabel: "Agent Markup",
+      data: [
+        {
+          value: "One",
+        },
+        {
+          value: "Two",
+        },
+      ],
+    },
+  ];
+  const initialData = [
+    {
+      "Date & Time": "2024-10-10",
+      "Booking Ref. No": "1",
+      Supplier: "Jenkins and Sons",
+      Airline: "5263",
+      "Airline PNR": "112233",
+      "Airline Payable": "99123",
+      "No. Bookings": "250",
+      "Hotel Payable": "West Richmondstad",
+      VAT: "0 AED",
+      "Provider Markup": "100",
+      "Agent Markup": "350",
+      "Booking Status ": "Active",
+      "Ticket  Status ": "Active",
+      "View Ticket  ": "VIEW",
+    },
+    {
+      "Date & Time": "2024-10-10",
+      "Booking Ref. No": "2",
+      Supplier: "Bins - Kulas",
+      Airline: "5263",
+      "Airline PNR": "112233",
+      "Airline Payable": "99123",
+      "No. Bookings": "250",
+      "Hotel Payable": "West Roscoestad",
+      VAT: "0 AED",
+      "Provider Markup": "100",
+      "Agent Markup": "350",
+      "Booking Status ": "De-Active",
+      "Ticket  Status ": "De-Active",
+      "View Ticket  ": "VIEW",
+    },
+    {
+      "Date & Time": "2024-10-10",
+      "Booking Ref. No": "3",
+      Supplier: "Herzog - Pollich",
+      Airline: "5263",
+      "Airline PNR": "112233",
+      "Airline Payable": "99123",
+      "No. Bookings": "250",
+      "Hotel Payable": "West Richmondstad",
+      VAT: "0 AED",
+      "Provider Markup": "100",
+      "Agent Markup": "350",
+      "Booking Status ": "De-Active",
+      "Ticket  Status ": "De-Active",
+      "View Ticket  ": "VIEW",
+    },
+    {
+      "Date & Time": "2024-10-10",
+      "Booking Ref. No": "4",
+      Supplier: "Daugherty Group",
+      Airline: "5263",
+      "Airline PNR": "112233",
+      "Airline Payable": "99123",
+      "No. Bookings": "250",
+      "Hotel Payable": "Annetteborough",
+      VAT: "0 AED",
+      "Provider Markup": "100",
+      "Agent Markup": "350",
+      "Booking Status ": "De-active",
+      "Ticket  Status ": "De-active",
+      "View Ticket  ": "VIEW",
+    },
+    {
+      "Date & Time": "2024-10-10",
+      "Booking Ref. No": "5",
+      Supplier: "Rodriguez Group",
+      Airline: "5263",
+      "Airline PNR": "112233",
+      "Airline Payable": "99123",
+      "No. Bookings": "250",
+      "Hotel Payable": "South Lazarotown",
+      VAT: "0 AED",
+      "Provider Markup": "100",
+      "Agent Markup": "350",
+      "Booking Status ": "Active",
+      "Ticket  Status ": "Active",
+      "View Ticket  ": "VIEW",
+    },
+    {
+      "Date & Time": "2024-10-10",
+      "Booking Ref. No": "6",
+      Supplier: "Greenholt, Schuster and Russel",
+      Airline: "5263",
+      "Airline PNR": "112233",
+      "Airline Payable": "99123",
+      "No. Bookings": "250",
+      "Hotel Payable": "Ernestfort",
+      VAT: "0 AED",
+      "Provider Markup": "100",
+      "Agent Markup": "350",
+      "Booking Status ": "De-active",
+      "Ticket  Status ": "De-active",
+      "View Ticket  ": "VIEW",
+    },
+    {
+      "Date & Time": "2024-10-10",
+      "Booking Ref. No": "7",
+      Supplier: "Medhurst - Schimmel",
+      Airline: "5263",
+      "Airline PNR": "112233",
+      "Airline Payable": "99123",
+      "No. Bookings": "250",
+      "Hotel Payable": "South Finnside",
+      VAT: "0 AED",
+      "Provider Markup": "100",
+      "Agent Markup": "350",
+      "Booking Status ": "Active",
+      "Ticket  Status ": "Active",
+      "View Ticket  ": "VIEW",
+    },
+    {
+      "Date & Time": "2024-10-10",
+      "Booking Ref. No": "11",
+      Supplier: "Huels - Berge",
+      Airline: "5263",
+      "Airline PNR": "112233",
+      "Airline Payable": "99123",
+      "No. Bookings": "250",
+      "Hotel Payable": "Jensenton",
+      VAT: "0 AED",
+      "Provider Markup": "100",
+      "Agent Markup": "350",
+      "Booking Status ": "De-active",
+      "Ticket  Status ": "De-active",
+      "View Ticket  ": "VIEW",
+    },
+    {
+      "Date & Time": "2024-10-10",
+      "Booking Ref. No": "8",
+      Supplier: "Berge Inc",
+      Airline: "5263",
+      "Airline PNR": "112233",
+      "Airline Payable": "99123",
+      "No. Bookings": "250",
+      "Hotel Payable": "East Daphney",
+      VAT: "0 AED",
+      "Provider Markup": "100",
+      "Agent Markup": "350",
+      "Booking Status ": "Active",
+      "Ticket  Status ": "Active",
+      "View Ticket  ": "VIEW",
+    },
+    {
+      "Date & Time": "2024-10-10",
+      "Booking Ref. No": "9",
+      Supplier: "Davis - Ruecker",
+      Airline: "5263",
+      "Airline PNR": "112233",
+      "Airline Payable": "99123",
+      "No. Bookings": "250",
+      "Hotel Payable": "East Daphney",
+      VAT: "0 AED",
+      "Provider Markup": "100",
+      "Agent Markup": "350",
+      "Booking Status ": "De-active",
+      "Ticket  Status ": "De-active",
+      "View Ticket  ": "VIEW",
+    },
+  ];
+
+  return (
+    <TableData
+      FieldAarray={FieldAarray}
+      initialData={initialData} // Pass the full initial data set/
+    />
+  );
+};

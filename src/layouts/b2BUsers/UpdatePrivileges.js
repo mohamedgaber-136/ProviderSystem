@@ -18,7 +18,8 @@ import MDButton from "components/MDButton";
 import { useState } from "react";
 import { CheckBoxComp } from "components/CheckBoxComp";
 function UpdatePrivileges() {
-  const [flighApi, setFlighApi] = useState(true);
+  const [flighApi, setFlighApi] = useState(false);
+  const [hotelsApi, setHotelApi] = useState(false);
   const UpdatePrivilegeBoxes = [
     {
       type: "input",
@@ -43,6 +44,28 @@ function UpdatePrivileges() {
     {
       type: "input",
       content: "Car",
+    },
+  ];
+  const HotelBoxes = [
+    {
+      type: "input",
+      content: "Hotelbeds",
+    },
+    {
+      type: "input",
+      content: "Tboholiday",
+    },
+    {
+      type: "input",
+      content: "Dotw",
+    },
+    {
+      type: "input",
+      content: "SubUser",
+    },
+    {
+      type: "input",
+      content: "Rezlive",
     },
   ];
   const LCCBoxes = [
@@ -143,6 +166,14 @@ function UpdatePrivileges() {
       content: "Sirena",
     },
   ];
+  const handleToggle = (label) => {
+    if (label === "Flights") {
+      setFlighApi((prev) => !prev);
+    } else if (label === "Hotels") {
+      setHotelApi((prev) => !prev);
+    }
+  };
+
   const UpdatePrivilege = (
     <Container>
       <Paper sx={{ padding: "25px", marginBlock: "50px" }}>
@@ -161,14 +192,22 @@ function UpdatePrivileges() {
             <MDBox mb={2}>
               <FormControl component="fieldset">
                 <FormGroup>
-                <CheckBoxComp
-                      labelData={'Flights'}
-                      type={null}
+
+                  <Container>
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label={'Flights'}
+                    onChange={() => handleToggle("Flights")}
                     />
-                    <CheckBoxComp
-                      labelData={'Hotels'}
-                      type={null}
+                    </Container>
+                    <Container>
+
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label={'Hotels'}
+                    onChange={() => handleToggle("Hotels")}
                     />
+                    </Container>
                   {UpdatePrivilegeBoxes.map((item) => (
                     <CheckBoxComp
                       labelData={item.content}
@@ -300,11 +339,49 @@ function UpdatePrivileges() {
       </Paper>
     </Container>
   );
+  const HotelsApi = ( <Container>
+  <Paper sx={{ padding: "25px", marginBlock: "50px" }}>
+    <Grid container gap={2}>
+      <MDTypography
+        variant="h5"
+        fontWeight="bold"
+        color="dark"
+        textAlign="start"
+      >
+        Hotel APIs{" "}
+      </MDTypography>
+      <Divider />
+
+      <Grid item xs={12}>
+        <MDBox mb={2}>
+          <FormControl component="fieldset">
+            <FormGroup>
+              {UpdatePrivilegeBoxes.map((item) => (
+                <CheckBoxComp
+                  labelData={item.content}
+                  key={item.content}
+                  type={item.type}
+                />
+              ))}
+            </FormGroup>
+          </FormControl>
+        </MDBox>
+      </Grid>
+    </Grid>
+
+    {/* Buttons */}
+    <MDBox sx={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+      <MDButton color="dark">Go Back</MDButton>
+      <MDButton color="primary">Update</MDButton>
+    </MDBox>
+  </Paper>
+</Container>)
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <FormData FormInfo={UpdatePrivilege} />
       {flighApi ? <FormData FormInfo={FlightApi} /> : null}
+      {hotelsApi ? <FormData FormInfo={HotelsApi} /> : null}
     </DashboardLayout>
   );
 }

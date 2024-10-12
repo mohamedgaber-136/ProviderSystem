@@ -26,47 +26,45 @@ import { CheckBoxComp } from "components/CheckBoxComp";
 function PaymentOption() {
   const checkBoxes = [
     {
-      type:null,
-      content:'Cash'
+      type: null,
+      content: "Cash",
     },
     {
-      type:null,
-      content:'Bank Transfer'
+      type: null,
+      content: "Bank Transfer",
     },
     {
-      type:null,
-      content:'Payment Link'
+      type: null,
+      content: "Payment Link",
     },
     {
-      type:null,
-      content:'GooglePay'
+      type: null,
+      content: "GooglePay",
     },
     {
-      type:null,
-      content:'SamsungPay'
+      type: null,
+      content: "SamsungPay",
     },
     {
-      type:null,
-      content:'Tabby'
+      type: null,
+      content: "Tabby",
     },
     {
-      type:null,
-      content: "Deposit"
+      type: null,
+      content: "Deposit",
     },
     {
-      type:null,
-      content:'PayBy'
+      type: null,
+      content: "PayBy",
     },
     {
-      type:null,
-      content:'Hold Booking'
+      type: null,
+      content: "Hold Booking",
     },
     {
-      type:null,
-      content:'Credit/Debit Card'
+      type: null,
+      content: "Credit/Debit Card",
     },
-   
-
   ];
   const Inputs = [
     {
@@ -118,7 +116,11 @@ function PaymentOption() {
                 <Divider />
                 <FormGroup>
                   {checkBoxes.map((item) => (
-                    <CheckBoxComp labelData={item.content} key={item} type={item.type} />
+                    <CheckBoxComp
+                      labelData={item.content}
+                      key={item}
+                      type={item.type}
+                    />
                   ))}
                 </FormGroup>
               </FormControl>

@@ -246,7 +246,7 @@ function B2BUsers() {
       {
         icon: <BookIcon />,
         content: 'View Bookings',
-        action: ''
+        action: "/UsersManagemnt/b2b-users/ViewBookins/:Id"
       },
       {
         icon: <AccountBalanceIcon />,
