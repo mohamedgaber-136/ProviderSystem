@@ -138,7 +138,7 @@ const routes = [
     name: "SubUsers",
     key: "SubUsers",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/b2b-users/SubUsers/:Id",
+    route: "/UsersManagemnt/b2b-users/:Id/SubUsers",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <SubUsersLazy />
@@ -150,7 +150,7 @@ const routes = [
     name: "PaymentOption",
     key: "PaymentOption",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/b2b-users/PaymentOption/:Id",
+    route: "/UsersManagemnt/b2b-users/:Id/PaymentOption",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <PaymentOptionLazy />
@@ -162,7 +162,7 @@ const routes = [
     name: "UpdatePrivileges",
     key: "UpdatePrivileges",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/b2b-users/UpdatePrivileges/:Id",
+    route: "/UsersManagemnt/b2b-users/:Id/UpdatePrivileges",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <UpdatePrivilegesLazy />
@@ -174,7 +174,7 @@ const routes = [
     name: "ViewBooking",
     key: "ViewBooking",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/b2b-users/ViewBookins/:Id",
+    route: "/UsersManagemnt/:route/:Id/ViewBookins",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <ViewBookingLazy />
@@ -186,7 +186,7 @@ const routes = [
     name: "Agent Deposit Management",
     key: "Agent Deposit Management",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/b2b-users/Agent-Deposit-Management/:Id",
+    route: "/UsersManagemnt/:route/:Id/Agent-Deposit-Management",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <AgentDepositLazy />

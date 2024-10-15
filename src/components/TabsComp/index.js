@@ -48,7 +48,23 @@ export default function TabsComb() {
   return (
     <Box sx={{ width: '100%' }}>
       <Box>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+          sx={{
+            '& .MuiTab-root': {
+              backgroundColor: 'transparent', // Default background for inactive tabs
+              color: 'text.primary', // Default text color
+              transition: 'background-color 0.3s ease', // Smooth transition for background color
+            },
+            '& .Mui-selected': {
+              backgroundColor: '#1c3c5a', // Background color for the active tab
+              color: 'white !important', // Optional: Change text color for active tab
+            },
+           
+          }}
+        >
           <Tab label="Flights" {...a11yProps(0)} />
           <Tab label="Hotels" {...a11yProps(1)} />
           <Tab label="Car" {...a11yProps(2)} />
@@ -57,19 +73,19 @@ export default function TabsComb() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Flights/>
+        <Flights />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Hotels/>
+        <Hotels />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <Cars/>
+        <Cars />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <Insurance/>
+        <Insurance />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <Transfer/>
+        <Transfer />
       </CustomTabPanel>
     </Box>
   );

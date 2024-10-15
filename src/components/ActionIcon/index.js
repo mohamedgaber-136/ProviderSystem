@@ -22,9 +22,9 @@ export default function LongMenu({ ActionsList, row }) {
   };
   const handleMenuItemClick = (action) => {
     if (typeof action === 'function') {
-      action(row['Company name']); // Execute if action is a function (like swal alert)
+      action(row.id); // Execute if action is a function (like swal alert)
     } else if (typeof action === 'string' && action) {
-      const path = action.replace(":Id", row['Company name']); // Replace :Id with actual id for navigation
+      const path = action.replace(":Id", row.id); // Replace :Id with actual id for navigation
       navigate(path);
     }
     handleClose();
@@ -60,8 +60,10 @@ export default function LongMenu({ ActionsList, row }) {
           <MenuItem 
             key={index} 
             onClick={() => handleMenuItemClick(option.action)}
+          
+            sx={{display:"flex",justifyContent:"center" }}
           >
-            <IconButton size="small" sx={{ mr: 1 }}>
+            <IconButton size="small" >
               {option.icon}
             </IconButton>
             {option.content}

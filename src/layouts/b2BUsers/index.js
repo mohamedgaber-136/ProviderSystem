@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import swal from 'sweetalert';
 import BlockIcon from '@mui/icons-material/Block';
+import { data } from "data/B2B_Users";
 function B2BUsers() {
   // This Is fields 
     const FieldAarray = [
@@ -22,6 +23,28 @@ function B2BUsers() {
           },
           {
             value:"De-active",
+          },
+        ],
+      },
+      {
+        inputLabel:"Number Of Bookings ",
+        data: [
+          {
+            value: "Balanced",
+          },
+          {
+            value: "not",
+          },
+        ],
+      },
+      {
+        inputLabel:"Sub Users ",
+        data: [
+          {
+            value: "Balanced",
+          },
+          {
+            value: "not",
           },
         ],
       },
@@ -80,153 +103,11 @@ function B2BUsers() {
       },
       
     ];
-    const initialData =[
-      {
-        "Logo": "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid",
-        "Agent ID":"1",
-        "Region" :"Montaza",
-        "Company name": "Jenkins and Sons",
-        "Country": "West Richmondstad",
-        "Email": "Alize_Stanton96@gmail.com",
-        "Contact Number": "(165) 496-9956 x8819",
-        "Balance":"0 AED",
-        "No. Bookings":"250",
-        "Monthly Sales":"100",
-        "Total Sales":"350",
-        "Status":"Active",
-      },
-      {
-        "Logo": "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid",
-        "Agent ID":"2",
-        "Region" :"Montaza",
-        "Company name": "Bins - Kulas",
-        "Country": "West Roscoestad",
-        "Email": "Letitia_Altenwerth@hotmail.com",
-        "Contact Number": "(542) 189-5918",
-        "Balance":"0 AED",
-        "No. Bookings":"250",
-        "Monthly Sales":"100",
-        "Total Sales":"350",
-        "Status":"De-Active",
-      },
-      {
-        "Logo": "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid",
-        "Agent ID":"3",
-        "Region" :"Montaza",
-        "Company name": "Herzog - Pollich",
-        "Country": "West Richmondstad",
-        "Email": "Ed.Emard@hotmail.com",
-        "Contact Number": "(329) 400-3798",
-        "Balance":"0 AED",
-        "No. Bookings":"250",
-        "Monthly Sales":"100",
-        "Total Sales":"350",
-        "Status":"De-Active",
-      },
-      {
-        "Logo": "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid",
-        "Agent ID":"4",
-        "Region" :"Montaza",
-        "Company name": "Daugherty Group",
-        "Country": "Annetteborough",
-        "Email": "Kameron22@hotmail.com",
-        "Contact Number": "819.741.9923 x503",
-        "Balance":"0 AED",
-        "No. Bookings":"250",
-        "Monthly Sales":"100",
-        "Total Sales":"350",
-        "Status":"De-active",
-      },
-      {
-        "Logo": "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid",
-        "Agent ID":"5",
-        "Region" :"Montaza",
-        "Company name": "Rodriguez Group",
-        "Country": "South Lazarotown",
-        "Email": "Ethel.Welch33@yahoo.com",
-        "Contact Number": "(977) 159-5346 x8202",
-        "Balance":"0 AED",
-        "No. Bookings":"250",
-        "Monthly Sales":"100",
-        "Total Sales":"350",
-        "Status":"Active",
-      },
-      {
-        "Logo": "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid",
-        "Agent ID":"6",
-        "Region" :"Montaza",
-        "Company name": "Greenholt, Schuster and Russel",
-        "Country": "Ernestfort",
-        "Email": "Aubree.Herzog8@yahoo.com",
-        "Contact Number": "1-331-549-9225",
-        "Balance":"0 AED",
-        "No. Bookings":"250",
-        "Monthly Sales":"100",
-        "Total Sales":"350",
-        "Status":"De-active",
-      },
-      {
-        "Logo": "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid",
-        "Agent ID":"7",
-        "Region" :"Montaza",
-        "Company name": "Medhurst - Schimmel",
-        "Country": "South Finnside",
-        "Email": "Noe_Veum@hotmail.com",
-        "Contact Number": "1-009-875-0829 x77236",
-        "Balance":"0 AED",
-        "No. Bookings":"250",
-        "Monthly Sales":"100",
-        "Total Sales":"350",
-          Status:"Active",      },
-      {
-        "Logo": "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid",
-        "Agent ID":"11",
-        "Region" :"Montaza",
-        "Company name": "Huels - Berge",
-
-        "Country": "Jensenton",
-        "Email": "Maynard.Aufderhar@yahoo.com",
-        "Contact Number": "(705) 447-0009 x462",
-        "Balance":"0 AED",
-        "No. Bookings":"250",
-        "Monthly Sales":"100",
-        "Total Sales":"350",
-        "Status":"De-active",
-      },
-      {
-        "Logo": "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid",
-        "Agent ID":"8",
-        "Region" :"Montaza",
-        "Company name": "Berge Inc",
-        "Country": "East Daphney",
-        "Email": "Wilton.Bauch@hotmail.com",
-        "Contact Number": "720.992.1338",
-        "Balance":"0 AED",
-        "No. Bookings":"250",
-        "Monthly Sales":"100",
-        "Total Sales":"350",
-        "Status":"Active",
-      },
-      {
-        "Logo": "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1728259200&semt=ais_hybrid",
-        "Agent ID":"9",
-        "Region" :"Montaza",
-        "Company name": "Davis - Ruecker",
-        "Country": "Lake Elenorafurt",
-        "Email": "Loren69@gmail.com",
-        "Contact Number": "(316) 898-2976 x6791",
-        "Balance":"0 AED",
-        "No. Bookings":"250",
-        "Monthly Sales":"100",
-        "Total Sales":"350",
-        "Status":"De-active",
-      }
-    ]
     const ActionsList = [
       {
         icon: <GroupIcon />,
         content: 'Sub Users',
-        action:'/UsersManagemnt/b2b-users/SubUsers/:Id'
+        action:'/UsersManagemnt/b2b-users/:Id/SubUsers'
       },
       {
         icon: <BlockIcon />,
@@ -236,22 +117,22 @@ function B2BUsers() {
       {
         icon: <PaymentIcon />,
         content: 'Payment Options',
-        action: '/UsersManagemnt/b2b-users/PaymentOption/:Id'
+        action: '/UsersManagemnt/b2b-users/:Id/PaymentOption'
       },
       {
         icon: <SecurityIcon />,
         content: 'Manage Privileges',
-        action: '/UsersManagemnt/b2b-users/UpdatePrivileges/:Id'
+        action: '/UsersManagemnt/b2b-users/:Id/UpdatePrivileges'
       },
       {
         icon: <BookIcon />,
         content: 'View Bookings',
-        action: "/UsersManagemnt/b2b-users/ViewBookins/:Id"
+        action: "/UsersManagemnt/b2b-users/:Id/ViewBookins"
       },
       {
         icon: <AccountBalanceIcon />,
         content: 'Balance Management',
-        action: "/UsersManagemnt/b2b-users/Agent-Deposit-Management/:Id"
+        action: "/UsersManagemnt/b2b-users/:Id/Agent-Deposit-Management"
       },
       {
         icon: <EditIcon />,
@@ -282,7 +163,7 @@ function B2BUsers() {
       <DashboardNavbar />
       <TableData
         FieldAarray={FieldAarray}
-        initialData={initialData} // Pass the full initial data set/
+        initialData={data} // Pass the full initial data set/
         ActionsList={ActionsList}
       />
     </DashboardLayout>

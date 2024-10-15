@@ -110,13 +110,13 @@ export default function EnhancedTable({
       color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
     },
   }));
-
+  
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
+      fontSize: 14,
     },
     "&:last-child td, &:last-child th": {
       border: 0,
@@ -159,17 +159,17 @@ export default function EnhancedTable({
     ).isRequired,
   };
   const checkKeys = (key, row) => {
-    if (key === "Status") {
+    if (key === "status") {
       return (
         <StyledTableCell align="center" key={key}>
           <Button
             style={{
-              backgroundColor: row[key] === "Active" ? "green" : "red",
+              backgroundColor: row[key] === true ? "green" : "red",
               color: "#fff",
               padding: 4,
             }}
           >
-            <small>{row[key]}</small>
+            <small>{row[key]?'active':'de-active'}</small>
           </Button>
         </StyledTableCell>
       );
@@ -212,35 +212,48 @@ export default function EnhancedTable({
         </IconButton>
       </Box>
       {FieldAarray ? (
-        <Collapse in={showFilters} timeout="auto" unmountOnExit>
-          <Paper
-            sx={{
-              width: "100%",
-              mb: 2,
-              borderRadius: 1,
-              overflow: "hidden",
-              p: 2,
-            }}
-          >
-            <Grid
-              container
-              spacing={2}
-              alignItems="center"
-              justifyContent="flex-start"
-            >
-              {FieldAarray.map((item, index) => (
-                <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                  <FilterField
-                    FilterArea={item}
-                    setData={setFilteredData}
-                    initialData={filterdData}
-                    data={initialData}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </Paper>
-        </Collapse>
+ <Collapse in={showFilters} timeout="auto" unmountOnExit>
+ <Paper
+   sx={{
+     width: "100%",
+     mb: 2,
+     borderRadius: 1,
+     overflow: "hidden",
+     p: 2,
+   }}
+ >
+   <Grid
+     container
+     spacing={2}
+     alignItems="center"
+     sx={{
+       flexWrap: { xs: "wrap", sm: "nowrap" }, // Wrap on mobile, no wrap on larger screens
+       overflowX: { xs: "auto", sm: "visible" }, // Allow horizontal scrolling on mobile
+       whiteSpace: { xs: "nowrap", sm: "normal" }, // Prevent wrapping in mobile view for scrolling
+     }}
+   >
+     {FieldAarray.map((item, index) => (
+       <Grid
+         key={index}
+         item
+         xs={12}
+         sm={4} // Adjust this as needed for tablet size
+         md={3} // Adjust this as needed for desktop size
+         lg={3} // Adjust this as needed for larger screens
+       >
+         <FilterField
+           FilterArea={item}
+           setData={setFilteredData}
+           initialData={filterdData}
+           data={initialData}
+         />
+       </Grid>
+     ))}
+   </Grid>
+ </Paper>
+</Collapse>
+
+    
       ) : null}
 
       <Paper sx={{ width: "100%", mb: 2, borderRadius: 0, overflow: "hidden" }}>
@@ -270,7 +283,10 @@ export default function EnhancedTable({
               ) : (
                 <StyledTableRow hover>
                   <StyledTableCell colSpan={headCells.length + 1}>
-                    No Data Found
+                    <div className="p-2 d-flex justify-content-center">
+
+                    <Button>No Data Found</Button>
+                    </div>
                   </StyledTableCell>
                 </StyledTableRow>
               )}
@@ -278,39 +294,56 @@ export default function EnhancedTable({
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[15, 20, 25]}
-          component="div"
-          count={filterdData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          sx={{
-            justifyContent: "flex-start",
-            display: "flex",
-            "& .MuiTablePagination-toolbar": {
-              margin: 0, // Remove margin from the toolbar
-            },
-            "& .MuiTablePagination-selectRoot": {
-              margin: 0, // Remove margin from the select dropdown
-            },
-            "& .MuiButtonBase-root": {
-              margin: 0, // Remove margin from buttons
-            },
-            "& .MuiTypography-root": {
-              margin: 0, // Remove margin from typography
-            },
-            "& .MuiTablePagination-displayedRows": {
-              margin: 0, // Remove margin from displayed rows
-            },
-            "& div[id^=':r2:']": {
-              margin: 0, // Remove margin for the element with id starting with :r2:
-            },
-            "& .MuiTablePagination-selectLabel": {
-              margin: 0, // Remove margin for select label
-            },
-          }}
-        />
+  rowsPerPageOptions={[15, 20, 25]}
+  component="div"
+  count={filterdData.length}
+  rowsPerPage={rowsPerPage}
+  page={page}
+  onPageChange={handleChangePage}
+  onRowsPerPageChange={handleChangeRowsPerPage}
+  sx={{
+    justifyContent: "space-between",
+    display: "flex",
+    width: "100%", // Ensures the main container is full width
+    "& .MuiTablePagination-root": {
+      width: "100%", // Sets the width of the pagination root div
+    },
+    "& > div": {
+      width: "100%", // Sets width for the immediate child div
+    },
+    "& .MuiTablePagination-spacer": {
+      display: "none", // Hides the spacer element
+    },
+    "& .MuiTablePagination-toolbar": {
+      margin: 0, // Remove margin from the toolbar
+    },
+    "& .MuiTablePagination-selectRoot": {
+      margin: 0, // Remove margin from the select dropdown
+    },
+    "& .MuiButtonBase-root": {
+      margin: 0, // Remove margin from buttons
+    },
+    "& .MuiTypography-root": {
+      margin: 0, // Remove margin from typography
+    },
+    "& .MuiTablePagination-displayedRows": {
+      margin: 0, // Remove margin from displayed rows
+      marginLeft: "auto", // Apply margin-left: auto to align to the right
+    },
+    "& #\\:r5\\:": {
+      justifySelf: "flex-end", // Align specific element with ID to flex-end
+    },
+    "& .MuiTablePagination-selectLabel": {
+      margin: 0, // Remove margin for select label
+      justifySelf: "flex-start", // Align select label to flex-start
+    },
+  }}
+/>
+
+
+
+
+
       </Paper>
     </Box>
   );

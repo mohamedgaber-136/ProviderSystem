@@ -48,7 +48,7 @@ function Breadcrumbs({ icon, title, route, light }) {
             key={el}
             onClick={() => navigate(-1)}
           >
-            {el.includes("%20") ? title.replaceAll("%20", " ") : el}
+            {el.includes("%20") ? el.replaceAll("%20", " ") : el}
           </MDTypography>
         ))}
         <MDTypography
@@ -67,6 +67,7 @@ function Breadcrumbs({ icon, title, route, light }) {
         fontWeight="bold"
         textTransform="capitalize"
         variant="h6"
+        marginBlock={2}
         color={light ? "white" : "dark"}
         noWrap
       >

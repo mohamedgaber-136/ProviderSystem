@@ -17,6 +17,7 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import { useState } from "react";
 import { CheckBoxComp } from "components/CheckBoxComp";
+import { CheckBoxCompFlights } from "components/CheckBoxFlights";
 function UpdatePrivileges() {
   const [flighApi, setFlighApi] = useState(false);
   const [hotelsApi, setHotelApi] = useState(false);
@@ -192,22 +193,20 @@ function UpdatePrivileges() {
             <MDBox mb={2}>
               <FormControl component="fieldset">
                 <FormGroup>
-
                   <Container>
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label={'Flights'}
-                    onChange={() => handleToggle("Flights")}
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label={"Flights"}
+                      onChange={() => handleToggle("Flights")}
                     />
-                    </Container>
-                    <Container>
-
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label={'Hotels'}
-                    onChange={() => handleToggle("Hotels")}
+                  </Container>
+                  <Container>
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label={"Hotels"}
+                      onChange={() => handleToggle("Hotels")}
                     />
-                    </Container>
+                  </Container>
                   {UpdatePrivilegeBoxes.map((item) => (
                     <CheckBoxComp
                       labelData={item.content}
@@ -258,13 +257,8 @@ function UpdatePrivileges() {
                 <FormGroup>
                   <Grid container justifyContent={"center"}>
                     {LCCBoxes.map((item, index) => (
-                      <Grid
-                        item
-                        xs={12}
-                        md={index === LCCBoxes.length - 1 ? 10 : 5}
-                        key={item.content}
-                      >
-                        <CheckBoxComp
+                      <Grid item xs={12} key={item.content}>
+                        <CheckBoxCompFlights
                           labelData={item.content}
                           type={item.type}
                         />
@@ -290,8 +284,8 @@ function UpdatePrivileges() {
                 <FormGroup>
                   <Grid container justifyContent={"center"}>
                     {NDCBoxes.map((item, index) => (
-                      <Grid item xs={12} md={5} key={item.content}>
-                        <CheckBoxComp
+                      <Grid item xs={12} key={item.content}>
+                        <CheckBoxCompFlights
                           labelData={item.content}
                           type={item.type}
                         />
@@ -317,8 +311,8 @@ function UpdatePrivileges() {
                 <FormGroup>
                   <Grid container justifyContent={"center"}>
                     {GDSBoxes.map((item, index) => (
-                      <Grid item xs={12} md={5} key={item.content}>
-                        <CheckBoxComp
+                      <Grid item xs={12} key={item.content}>
+                        <CheckBoxCompFlights
                           labelData={item.content}
                           type={item.type}
                         />
@@ -339,43 +333,45 @@ function UpdatePrivileges() {
       </Paper>
     </Container>
   );
-  const HotelsApi = ( <Container>
-  <Paper sx={{ padding: "25px", marginBlock: "50px" }}>
-    <Grid container gap={2}>
-      <MDTypography
-        variant="h5"
-        fontWeight="bold"
-        color="dark"
-        textAlign="start"
-      >
-        Hotel APIs{" "}
-      </MDTypography>
-      <Divider />
+  const HotelsApi = (
+    <Container>
+      <Paper sx={{ padding: "25px", marginBlock: "50px" }}>
+        <Grid container gap={2}>
+          <MDTypography
+            variant="h5"
+            fontWeight="bold"
+            color="dark"
+            textAlign="start"
+          >
+            Hotel APIs{" "}
+          </MDTypography>
+          <Divider />
 
-      <Grid item xs={12}>
-        <MDBox mb={2}>
-          <FormControl component="fieldset">
-            <FormGroup>
-              {UpdatePrivilegeBoxes.map((item) => (
-                <CheckBoxComp
-                  labelData={item.content}
-                  key={item.content}
-                  type={item.type}
-                />
-              ))}
-            </FormGroup>
-          </FormControl>
+          <Grid item xs={12}>
+            <MDBox mb={2}>
+              <FormControl component="fieldset">
+                <FormGroup>
+                  {UpdatePrivilegeBoxes.map((item) => (
+                    <CheckBoxComp
+                      labelData={item.content}
+                      key={item.content}
+                      type={item.type}
+                    />
+                  ))}
+                </FormGroup>
+              </FormControl>
+            </MDBox>
+          </Grid>
+        </Grid>
+
+        {/* Buttons */}
+        <MDBox sx={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+          <MDButton color="dark">Go Back</MDButton>
+          <MDButton color="primary">Update</MDButton>
         </MDBox>
-      </Grid>
-    </Grid>
-
-    {/* Buttons */}
-    <MDBox sx={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-      <MDButton color="dark">Go Back</MDButton>
-      <MDButton color="primary">Update</MDButton>
-    </MDBox>
-  </Paper>
-</Container>)
+      </Paper>
+    </Container>
+  );
   return (
     <DashboardLayout>
       <DashboardNavbar />
