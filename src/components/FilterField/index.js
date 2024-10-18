@@ -1,52 +1,66 @@
-import React, { useState, useEffect, useMemo, useCallback, memo } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { MenuItem, FormControl, InputLabel } from "@mui/material";
 import PropTypes from "prop-types";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from "@mui/material/styles";
 import MDSelect from "components/MDSelect";
 
-const FilterField = ({ FilterArea, setData, initialData ,data}) => {
+const FilterField = ({ FilterArea, setData, data }) => { // Keep 'data' prop as the initial data for filtering
   const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
     backgroundColor: theme.palette.common.white,
     padding: "0 8px",
     zIndex: 1,
   }));
+
   const [selectedValue, setSelectedValue] = useState("All");
 
-  const memoizedInitialData = useMemo(() => initialData, [initialData]);
-
   const updateData = useCallback(
-    (data) => setData(data),
+    (filteredData) => {
+      setData(filteredData); // Update the parent state with filtered data
+    },
     [setData]
   );
 
   useEffect(() => {
-    let currentData = memoizedInitialData;
+    let currentData = data; // Start filtering from the data prop
 
-    if (selectedValue.toLowerCase() !== "all") {
-      currentData = currentData.filter((item) => {
+    // Log current data for debugging
+    console.log("Filtering data based on:", selectedValue);
+
+    if (selectedValue !== "All") {
+      currentData = data.filter((item) => {
         const key = FilterArea.inputLabel.trim();
-        return item[key]?.toString().toLowerCase() === selectedValue.toLowerCase();
+
+        if (key === "status") {
+          // Convert selectedValue to a boolean if it's for "status"
+          const booleanValue = selectedValue === "true";
+          return item[key] === booleanValue; // Filter by boolean status
+        }
+
+        // For other fields, perform a string comparison
+        return item[key]?.toString().toLowerCase() === selectedValue.toString().toLowerCase();
       });
     }
-    updateData(currentData);
 
-  }, [selectedValue, memoizedInitialData, updateData, FilterArea.inputLabel]);
+    updateData(currentData); // Update the filtered data
+  }, [selectedValue, data, FilterArea.inputLabel, updateData]); // Include 'data' in the dependency array
 
   return (
-    <FormControl fullWidth  variant="standard">
+    <FormControl fullWidth variant="standard">
       <StyledInputLabel>{FilterArea.inputLabel}</StyledInputLabel>
       <MDSelect
         value={selectedValue}
         name="FilterType"
-        onChange={(e) => setSelectedValue(e.target.value)}
+        onChange={(e) => setSelectedValue(e.target.value)} // Set selected value
         fullWidth
         IconComponent={ArrowDropDownIcon}
       >
         <MenuItem value="All">All</MenuItem>
         {FilterArea?.data?.map((item) => (
-          <MenuItem key={item.value} value={item.value}>
-            {item.value}
+          <MenuItem key={item.value.toString()} value={item.value.toString()}>
+            {typeof item.value === "boolean" 
+              ? item.value ? "active" : "de-active" 
+              : item.value}
           </MenuItem>
         ))}
       </MDSelect>
@@ -59,13 +73,12 @@ FilterField.propTypes = {
     inputLabel: PropTypes.string.isRequired,
     data: PropTypes.arrayOf(
       PropTypes.shape({
-        value: PropTypes.string.isRequired,
+        value: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired,
       })
     ).isRequired,
   }).isRequired,
   setData: PropTypes.func.isRequired,
-  initialData: PropTypes.arrayOf(PropTypes.object).isRequired,
-  data:PropTypes.any,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired, // Updated to reflect 'data' as initial data
 };
 
 export default memo(FilterField);

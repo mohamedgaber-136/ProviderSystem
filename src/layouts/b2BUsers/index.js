@@ -16,13 +16,13 @@ function B2BUsers() {
   // This Is fields 
     const FieldAarray = [
       {
-        inputLabel:"Status",
+        inputLabel:"status",
         data: [
           {
-            value:"Active",
+            value:true,
           },
           {
-            value:"De-active",
+            value:false,
           },
         ],
       },
