@@ -1,7 +1,7 @@
 import { Suspense, lazy } from "react";
 import { LazyLoader } from "components/LazyLoader";
 import Icon from "@mui/material/Icon";
- 
+
 // Delay function for demo purposes (optional)
 async function delayForDemo(promise) {
   return new Promise((resolve) => {
@@ -15,7 +15,9 @@ const TablesLazy = lazy(() => import("layouts/tables"));
 const BillingLazy = lazy(() => import("layouts/billing"));
 const NotificationsLazy = lazy(() => import("layouts/notifications"));
 const ProfileLazy = lazy(() => import("layouts/profile"));
-const SignInLazy = lazy(() => delayForDemo(import("layouts/authentication/sign-in")));
+const SignInLazy = lazy(() =>
+  delayForDemo(import("layouts/authentication/sign-in"))
+);
 const SignUpLazy = lazy(() => import("layouts/authentication/sign-up"));
 const Reset = lazy(() => import("layouts/authentication/reset-password/cover"));
 const B2BUsersLazy = lazy(() => import("layouts/b2BUsers"));
@@ -24,8 +26,15 @@ const IndividualUsersLazy = lazy(() => import("layouts/IndividualUsers"));
 const AsfarUsersLazy = lazy(() => import("layouts/AsfarUsers"));
 const AddNewUsersLazy = lazy(() => import("layouts/AddNewUser"));
 const SubUsersLazy = lazy(() => import("layouts/b2BUsers/SubUsers.js"));
-const PaymentOptionLazy = lazy(() => import("layouts/b2BUsers/PaymentOption.js"));
-const UpdatePrivilegesLazy = lazy(() => import("layouts/b2BUsers/UpdatePrivileges.js"));
+const PaymentOptionLazy = lazy(() =>
+  import("layouts/b2BUsers/PaymentOption.js")
+);
+const UpdatePrivilegesLazy = lazy(() =>
+  import("layouts/b2BUsers/UpdatePrivileges.js")
+);
+const UpdatePrivilegesSubUserLazy = lazy(() =>
+  import("layouts/b2BUsers/UpdatePrivilegesSubUser.js")
+);
 const ViewBookingLazy = lazy(() => import("layouts/b2BUsers/ViewBookings.js"));
 const AgentDepositLazy = lazy(() => import("layouts/b2BUsers/AgentDeposit.js"));
 const routes = [
@@ -126,7 +135,7 @@ const routes = [
     name: "B2b",
     key: "B2b Users",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/b2b-users",
+    route: "/UsersManagement/b2b-users",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <B2BUsersLazy />
@@ -138,7 +147,7 @@ const routes = [
     name: "SubUsers",
     key: "SubUsers",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/b2b-users/:Id/SubUsers",
+    route: "/UsersManagement/b2b-users/:Id/SubUsers",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <SubUsersLazy />
@@ -150,7 +159,19 @@ const routes = [
     name: "PaymentOption",
     key: "PaymentOption",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/b2b-users/:Id/PaymentOption",
+    route: "/UsersManagement/b2b-users/:Id/PaymentOption",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <PaymentOptionLazy />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "PaymentOption",
+    key: "PaymentOption",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagement/b2b-users/:Id/PaymentOption/:Agent_Id",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <PaymentOptionLazy />
@@ -162,7 +183,7 @@ const routes = [
     name: "UpdatePrivileges",
     key: "UpdatePrivileges",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/b2b-users/:Id/UpdatePrivileges",
+    route: "/UsersManagement/b2b-users/:Id/UpdatePrivileges",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <UpdatePrivilegesLazy />
@@ -171,10 +192,34 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "UpdatePrivileges",
+    key: "UpdatePrivileges",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagement/b2b-users/:Id/UpdatePrivileges/:Agent_Id",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <UpdatePrivilegesSubUserLazy />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
     name: "ViewBooking",
     key: "ViewBooking",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/:route/:Id/ViewBookins",
+    route: "/UsersManagement/:route/:Id/ViewBookings",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <ViewBookingLazy />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "ViewBooking",
+    key: "ViewBooking",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagement/:route/:Id/ViewBookings/:Agent_Id",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <ViewBookingLazy />
@@ -186,7 +231,19 @@ const routes = [
     name: "Agent Deposit Management",
     key: "Agent Deposit Management",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/:route/:Id/Agent-Deposit-Management",
+    route: "/UsersManagement/:route/:Id/Agent-Deposit-Management",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <AgentDepositLazy />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "Agent Deposit Management",
+    key: "Agent Deposit Management",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagement/:route/:Id/Agent-Deposit-Management/:Agent_Id",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <AgentDepositLazy />
@@ -198,7 +255,7 @@ const routes = [
     name: "B2C",
     key: "B2C Users",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/b2c-users",
+    route: "/UsersManagement/b2c-users",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <B2CUsersLazy />
@@ -210,7 +267,7 @@ const routes = [
     name: "Individual Users",
     key: "Individual Users",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/Individual-users",
+    route: "/UsersManagement/individual-users",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <IndividualUsersLazy />
@@ -222,7 +279,7 @@ const routes = [
     name: "Asfar Users",
     key: "Asfar Users",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagemnt/asfar-users",
+    route: "/UsersManagement/asfar-users",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <AsfarUsersLazy />

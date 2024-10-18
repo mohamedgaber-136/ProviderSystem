@@ -1,213 +1,209 @@
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import TableData from "components/TableData";
-import GroupIcon from '@mui/icons-material/Group';
-import PaymentIcon from '@mui/icons-material/Payment';
-import SecurityIcon from '@mui/icons-material/Security';
-import BookIcon from '@mui/icons-material/Book';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import swal from 'sweetalert';
-import BlockIcon from '@mui/icons-material/Block';
+import GroupIcon from "@mui/icons-material/Group";
+import PaymentIcon from "@mui/icons-material/Payment";
+import SecurityIcon from "@mui/icons-material/Security";
+import BookIcon from "@mui/icons-material/Book";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import swal from "sweetalert";
+import BlockIcon from "@mui/icons-material/Block";
+import FiltrationsArray from "data/FiltrationsArray";
 
 export const Transfer = () => {
-  const FieldAarray = [
-    {
-      inputLabel: "Date & Time ",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-    {
-      inputLabel: "Supplier ",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-    {
-      inputLabel: "Provider Markup",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-   
-    {
-      inputLabel: "Agent Markup",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-  ];
+  // const FieldArray = [
+  //   {
+  //     inputLabel: "Date & Time ",
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: "supplier ",
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: provider_markup,
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+
+  //   {
+  //     inputLabel: agent_markup,
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  // ];
   const initialData = [
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref No": "1",
-      "Supplier": "Jenkins and Sons",
-    
-      "No. Bookings": "250",
-      "Car Payable": "West Richmondstad",
-      VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "Active",
-      "View Booking":'View'
+      date_and_time: "2024-10-10",
+      booking_ref_number: "6",
+      supplier: "Jenkins and Sons",
 
+      number_of_bookings: "250",
+      car_payable: "West Richmondstad",
+      VAT: "2 AED",
+      provider_markup: "100",
+      agent_markup: "250",
+      booking_status: "De-active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref No": "2",
-      "Supplier": "Bins - Kulas",
-    
-      "No. Bookings": "250",
-      "Car Payable": "West Roscoestad",
-      VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-Active",
-      "View Booking":'View'
+      date_and_time: "2024-10-10",
+      booking_ref_number: "2",
+      supplier: "Bins - Kulas",
 
+      number_of_bookings: "250",
+      car_payable: "West Roscoestad",
+      VAT: "0 AED",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-Active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref No": "3",
-      "Supplier": "Herzog - Pollich",
-      "No. Bookings": "250",
-      "Car Payable": "West Richmondstad",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "3",
+      supplier: "Herzog - Pollich",
+      number_of_bookings: "250",
+      car_payable: "West Richmondstad",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-Active",
-      "View Booking":'View'
-
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-Active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref No": "4",
-      "Supplier": "Daugherty Group",
-    
-      "No. Bookings": "250",
-      "Car Payable": "Annetteborough",
-      VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-active",
-      "View Booking":'View'
+      date_and_time: "2024-10-10",
+      booking_ref_number: "4",
+      supplier: "Daugherty Group",
 
+      number_of_bookings: "250",
+      car_payable: "Annetteborough",
+      VAT: "0 AED",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref No": "5",
-      "Supplier": "Rodriguez Group",
-    
-      "No. Bookings": "250",
-      "Car Payable": "South Lazarotown",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "5",
+      supplier: "Rodriguez Group",
+
+      number_of_bookings: "250",
+      car_payable: "South Lazarotown",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "Active",
-      "View Booking":'View'
-
-
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "Active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref No": "6",
-      "Supplier": "Greenholt, Schuster and Russel",
-    
-      "No. Bookings": "250",
-      "Car Payable": "Ernestfort",
-      VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-active",
-      "View Booking":'View'
+      date_and_time: "2024-10-10",
+      booking_ref_number: "6",
+      supplier: "Greenholt, Schuster and Russel",
 
+      number_of_bookings: "250",
+      car_payable: "Ernestfort",
+      VAT: "0 AED",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref No": "7",
-      "Supplier": "Medhurst - Schimmel",
-    
-      "No. Bookings": "250",
-      "Car Payable": "South Finnside",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "7",
+      supplier: "Medhurst - Schimmel",
+
+      number_of_bookings: "250",
+      car_payable: "South Finnside",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "Active",
-      "View Booking":'View'
-
-
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "Active",
+      view_booking: "View",
     },
     {
-        "Date & Time": "2024-10-10",
-      "Booking Ref No": "11",
-      "Supplier": "Huels - Berge",
-    
-      "No. Bookings": "250",
-      "Car Payable": "Jensenton",
-      VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-active",
-      "View Booking":'View'
+      date_and_time: "2024-10-10",
+      booking_ref_number: "11",
+      supplier: "Huels - Berge",
 
+      number_of_bookings: "250",
+      car_payable: "Jensenton",
+      VAT: "0 AED",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref No": "8",
-      "Supplier": "Berge Inc",
-    
-      "No. Bookings": "250",
-      "Car Payable": "East Daphney",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "8",
+      supplier: "Berge Inc",
+
+      number_of_bookings: "250",
+      car_payable: "East Daphney",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "Active",
-      "View Booking":'View'
-
-
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "Active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref No": "9",
-      "Supplier": "Davis - Ruecker",
-    
-      "No. Bookings": "250",
-      "Car Payable": "East Daphney",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "9",
+      supplier: "Davis - Ruecker",
+
+      number_of_bookings: "250",
+      car_payable: "East Daphney",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-active",
-      
-      "View Booking":'View'
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-active",
+
+      view_booking: "View",
     },
   ];
-    return (
-     
-        <TableData
-          FieldAarray={FieldAarray}
-          initialData={initialData} // Pass the full initial data set/
-        />
-    );
-}
+  return (
+    <TableData
+      FieldArray={FiltrationsArray({
+        keysList: [
+          "date_and_time",
+          "supplier",
+          "provider_markup",
+          "agent_markup",
+        ],
+        dataList: initialData,
+      })}
+      initialData={initialData} // Pass the full initial data set/
+    />
+  );
+};

@@ -19,7 +19,7 @@ import { useState } from "react";
 import { CheckBoxComp } from "components/CheckBoxComp";
 import { CheckBoxCompFlights } from "components/CheckBoxFlights";
 import { useNavigate } from "react-router-dom";
-function UpdatePrivileges() {
+function UpdatePrivilegesSubUser() {
   const navigate = useNavigate();
 
   const [flightApi, setFlightApi] = useState(false);
@@ -38,7 +38,7 @@ function UpdatePrivileges() {
       content: "Transfer",
     },
     {
-      type: "none",
+      type: "input",
       content: "SubUser",
     },
     {
@@ -390,4 +390,4 @@ function UpdatePrivileges() {
     </DashboardLayout>
   );
 }
-export default UpdatePrivileges;
+export default UpdatePrivilegesSubUser;

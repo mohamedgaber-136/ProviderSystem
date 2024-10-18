@@ -1,181 +1,188 @@
-
 import TableData from "components/TableData";
-
+import FiltrationsArray from "data/FiltrationsArray";
 
 export const Hotels = () => {
-  const FieldAarray = [
-    {
-      inputLabel: "Date & Time ",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-    {
-      inputLabel: "Supplier ",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-    {
-      inputLabel: "Provider Markup",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-    {
-      inputLabel: "Agent Markup",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-  ];
+  // const FieldArray = [
+  //   {
+  //     inputLabel: "Date & Time ",
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: "supplier ",
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: provider_markup,
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: agent_markup,
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  // ];
   const initialData = [
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "1",
-      Supplier: "Jenkins and Sons",
-      "No. Bookings": "250",
-      "Hotel Payable": "West Richmondstad",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "1",
+      supplier: "Jenkins and Sons",
+      number_of_bookings: "250",
+      hotel_paypal: "West Richmondstad",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      Status: "Active",
-      "View Booking  ": "View",
+      provider_markup: "100",
+      agent_markup: "350",
+      status: "Active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "2",
-      Supplier: "Bins - Kulas",
-      "No. Bookings": "250",
-      "Hotel Payable": "West Roscoestad",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "2",
+      supplier: "Bins - Kulas",
+      number_of_bookings: "250",
+      hotel_paypal: "West Roscoestad",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      Status: "De-Active",
-      "View Booking  ": "View",
+      provider_markup: "100",
+      agent_markup: "350",
+      status: "De-Active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "3",
-      Supplier: "Herzog - Pollich",
-      "No. Bookings": "250",
-      "Hotel Payable": "West Richmondstad",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "3",
+      supplier: "Herzog - Pollich",
+      number_of_bookings: "250",
+      hotel_paypal: "West Richmondstad",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      Status: "De-Active",
-      "View Booking  ": "View",
+      provider_markup: "100",
+      agent_markup: "350",
+      status: "De-Active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "4",
-      Supplier: "Daugherty Group",
-      "No. Bookings": "250",
-      "Hotel Payable": "Annetteborough",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "4",
+      supplier: "Daugherty Group",
+      number_of_bookings: "250",
+      hotel_paypal: "Annetteborough",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      Status: "De-active",
-      "View Booking  ": "View",
+      provider_markup: "100",
+      agent_markup: "350",
+      status: "De-active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "5",
-      Supplier: "Rodriguez Group",
-      "No. Bookings": "250",
-      "Hotel Payable": "South Lazarotown",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "5",
+      supplier: "Rodriguez Group",
+      number_of_bookings: "250",
+      hotel_paypal: "South Lazarotown",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      Status: "Active",
-      "View Booking  ": "View",
+      provider_markup: "100",
+      agent_markup: "350",
+      status: "Active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "6",
-      Supplier: "Greenholt, Schuster and Russel",
-      "No. Bookings": "250",
-      "Hotel Payable": "Ernestfort",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "6",
+      supplier: "Greenholt, Schuster and Russel",
+      number_of_bookings: "250",
+      hotel_paypal: "Ernestfort",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      Status: "De-active",
-      "View Booking  ": "View",
+      provider_markup: "100",
+      agent_markup: "350",
+      status: "De-active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "7",
-      Supplier: "Medhurst - Schimmel",
-      "No. Bookings": "250",
-      "Hotel Payable": "South Finnside",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "7",
+      supplier: "Medhurst - Schimmel",
+      number_of_bookings: "250",
+      hotel_paypal: "South Finnside",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      Status: "Active",
-      "View Booking  ": "View",
+      provider_markup: "100",
+      agent_markup: "350",
+      status: "Active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "11",
-      Supplier: "Huels - Berge",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "11",
+      supplier: "Huels - Berge",
 
-      "No. Bookings": "250",
-      "Hotel Payable": "Jensenton",
+      number_of_bookings: "250",
+      hotel_paypal: "Jensenton",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      Status: "De-active",
-      "View Booking  ": "View",
+      provider_markup: "100",
+      agent_markup: "350",
+      status: "De-active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "8",
-      Supplier: "Berge Inc",
-      "No. Bookings": "250",
-      "Hotel Payable": "East Daphney",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "8",
+      supplier: "Berge Inc",
+      number_of_bookings: "250",
+      hotel_paypal: "East Daphney",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      Status: "Active",
-      "View Booking  ": "View",
+      provider_markup: "100",
+      agent_markup: "350",
+      status: "Active",
+      view_booking: "View",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "9",
-      Supplier: "Davis - Ruecker",
-      "No. Bookings": "250",
-      "Hotel Payable": "East Daphney",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "9",
+      supplier: "Davis - Ruecker",
+      number_of_bookings: "250",
+      hotel_paypal: "East Daphney",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      Status: "De-active",
-      "View Booking  ": "View",
+      provider_markup: "100",
+      agent_markup: "350",
+      status: "De-active",
+      view_booking: "View",
     },
   ];
 
   return (
     <TableData
-      FieldAarray={FieldAarray}
+      FieldArray={FiltrationsArray({
+        keysList: [
+          "date_and_time",
+          "supplier",
+          "provider_markup",
+          "agent_markup",
+        ],
+        dataList: initialData,
+      })}
       initialData={initialData} // Pass the full initial data set/
     />
   );

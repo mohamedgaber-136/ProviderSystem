@@ -23,7 +23,9 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import { CheckBoxComp } from "components/CheckBoxComp";
+import { useNavigate } from "react-router-dom";
 function PaymentOption() {
+  const navigate = useNavigate();
   const checkBoxes = [
     {
       type: null,
@@ -130,7 +132,9 @@ function PaymentOption() {
 
         {/* Buttons */}
         <MDBox sx={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-          <MDButton color="dark">Go Back</MDButton>
+          <MDButton color="dark" onClick={() => navigate(-1)}>
+            Go Back
+          </MDButton>
           <MDButton color="primary">Update</MDButton>
         </MDBox>
       </Paper>
@@ -180,7 +184,9 @@ function PaymentOption() {
 
         {/* Buttons */}
         <MDBox sx={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-          <MDButton color="dark">Go Back</MDButton>
+          <MDButton color="dark" onClick={() => navigate(-1)}>
+            Go Back
+          </MDButton>
           <MDButton color="primary">Update</MDButton>
         </MDBox>
       </Paper>

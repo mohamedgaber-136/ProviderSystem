@@ -11,16 +11,19 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
 import { styled } from "@mui/material/styles";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button, Container, Grid, IconButton } from "@mui/material";
 import { SearchField } from "components/SearchField";
 import FilterField from "components/FilterField";
 import LongMenu from "components/ActionIcon";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { Collapse } from "@mui/material"; // Import Collapse
+import RangeFilter from "components/RangeFilter";
+import { useParams } from "react-router-dom";
+import MDButton from "components/MDButton";
 export default function EnhancedTable({
   initialData,
-  FieldAarray,
+  FieldArray,
   ActionsList,
 }) {
   const [order, setOrder] = useState("asc");
@@ -31,7 +34,68 @@ export default function EnhancedTable({
   const [orderBy, setOrderBy] = useState(
     Object.keys(initialData[0] || {})[0] || ""
   );
-  const [filterdData, setFilteredData] = useState(initialData);
+  const [filteredData, setFilteredData] = useState(initialData);
+  const [filterState, setFilterState] = useState({});
+
+  // Function to apply all active filters
+  const applyFilters = () => {
+    let resultData = [...initialData];
+
+    Object.keys(filterState).forEach((filterKey) => {
+      const filterValue = filterState[filterKey];
+      console.log(filterState, "filterState");
+      if (filterKey !== "All" && typeof filterValue !== "object") {
+        console.log("not all and not date");
+        resultData = resultData.filter((item) =>
+          item[filterKey]
+            ?.toString()
+            ?.toLowerCase()
+            .includes(filterValue.toLowerCase())
+        );
+      } else if (filterState[filterKey].type === "date") {
+        console.log("HELLO HELLO");
+        resultData = resultData.filter(
+          (item) =>
+            new Date(item[filterKey]) >= new Date(filterValue.startDate) &&
+            new Date(item[filterKey]) <= new Date(filterValue.endDate)
+        );
+        console.log(resultData, "resultData");
+      } else if (filterState[filterKey].type === "number") {
+        console.log("HELLO HELLO NUMBER");
+        resultData = resultData.filter(
+          (item) =>
+            item[filterKey] >= filterValue.min &&
+            item[filterKey] <= filterValue.max
+        );
+        console.log(resultData, "resultData");
+      }
+      // if (filterValue && filterValue !== "All") {
+      //   if (filterKey === "date") {
+      //     resultData = resultData.filter(
+      //       (item) =>
+      //         new Date(item.date) >= new Date(filterValue.startDate) &&
+      //         new Date(item.date) <= new Date(filterValue.endDate)
+      //     );
+      //   } else {
+      //     // will edit
+      //     resultData = resultData.filter((item) =>
+      //       item[filterKey]
+      //         ?.toString()
+      //         ?.toLowerCase()
+      //         .includes(filterValue.toLowerCase())
+      //     );
+      //   }
+      // }
+    });
+
+    setFilteredData(resultData);
+  };
+
+  // Refilter the data when any filter changes
+  useEffect(() => {
+    applyFilters();
+  }, [filterState]);
+
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) return -1;
     if (b[orderBy] > a[orderBy]) return 1;
@@ -51,6 +115,10 @@ export default function EnhancedTable({
       numeric: typeof data[0][key] === "number",
       disablePadding: false,
       label: key.charAt(0).toUpperCase() + key.slice(1),
+      // label: key
+      //   .split("_")
+      //   .map((item) => item.charAt(0).toUpperCase() + item.slice(1))
+      //   .join(" "),
     }));
   };
 
@@ -109,10 +177,9 @@ export default function EnhancedTable({
       backgroundColor: theme.palette.common.black,
       color: theme.palette.common.white,
     },
-    [`&.${tableCellClasses.body}`]: {
-    },
+    [`&.${tableCellClasses.body}`]: {},
   }));
-  
+
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
@@ -131,10 +198,10 @@ export default function EnhancedTable({
 
   const visibleRows = useMemo(
     () =>
-      [...filterdData]
+      [...filteredData]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage, filterdData]
+    [order, orderBy, page, rowsPerPage, filteredData]
   );
 
   const handleChangePage = (event, newPage) => setPage(newPage);
@@ -159,7 +226,7 @@ export default function EnhancedTable({
     ).isRequired,
   };
   const checkKeys = (key, row) => {
-    if (key === "status") {
+    if (key.toLowerCase() === "status") {
       return (
         <StyledTableCell align="center" key={key}>
           <Button
@@ -169,11 +236,11 @@ export default function EnhancedTable({
               padding: 4,
             }}
           >
-            <small>{row[key]?'active':'de-active'}</small>
+            <small>{row[key] ? "active" : "de-active"}</small>
           </Button>
         </StyledTableCell>
       );
-    } else if (key === "Logo") {
+    } else if (key.toLowerCase() === "logo") {
       return (
         <StyledTableCell align="center" key={key}>
           <img
@@ -211,49 +278,82 @@ export default function EnhancedTable({
           <FilterListIcon />
         </IconButton>
       </Box>
-      {FieldAarray ? (
- <Collapse in={showFilters} timeout="auto" unmountOnExit>
- <Paper
-   sx={{
-     width: "100%",
-     mb: 2,
-     borderRadius: 1,
-     overflow: "hidden",
-     p: 2,
-   }}
- >
-   <Grid
-     container
-     spacing={2}
-     alignItems="center"
-     sx={{
-       flexWrap: { xs: "wrap", sm: "nowrap" }, // Wrap on mobile, no wrap on larger screens
-       overflowX: { xs: "auto", sm: "visible" }, // Allow horizontal scrolling on mobile
-       whiteSpace: { xs: "nowrap", sm: "normal" }, // Prevent wrapping in mobile view for scrolling
-     }}
-   >
-     {FieldAarray.map((item, index) => (
-       <Grid
-         key={index}
-         item
-         xs={12}
-         sm={4} // Adjust this as needed for tablet size
-         md={3} // Adjust this as needed for desktop size
-         lg={3} // Adjust this as needed for larger screens
-       >
-         <FilterField
-           FilterArea={item}
-           setData={setFilteredData}
-           initialData={filterdData}
-           data={initialData}
-         />
-       </Grid>
-     ))}
-   </Grid>
- </Paper>
-</Collapse>
+      {FieldArray ? (
+        <Collapse in={showFilters} timeout="auto" unmountOnExit>
+          <Paper
+            sx={{
+              width: "100%",
+              mb: 2,
+              borderRadius: 1,
+              overflow: "hidden",
+              p: 2,
+            }}
+          >
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              sx={{
+                flexWrap: { xs: "wrap", sm: "nowrap" }, // Wrap on mobile, no wrap on larger screens
+                overflowX: { xs: "auto", sm: "visible" }, // Allow horizontal scrolling on mobile
+                whiteSpace: { xs: "nowrap", sm: "normal" }, // Prevent wrapping in mobile view for scrolling
+              }}
+            >
+              {FieldArray.map((item, index) =>
+                item.type.includes("range") ? (
+                  <Grid key={index} item xs={12} sm={4} md={3} lg={3}>
+                    <RangeFilter
+                      FilterArea={item}
+                      filterState={filterState}
+                      setFilterState={setFilterState}
+                    />
+                  </Grid>
+                ) : (
+                  <Grid key={index} item xs={12} sm={4} md={3} lg={3}>
+                    <FilterField
+                      FilterArea={item}
+                      filterState={filterState}
+                      setFilterState={setFilterState}
+                    />
+                  </Grid>
+                )
+              )}
+              {/* <MDButton color="dark" onClick={setFilterState({})}>
+                Clear
+              </MDButton> */}
+              {/* {FieldArray.map(
+                (item, index) =>
+                  item.type === "dropdown" && (
+                    <Grid
+                      key={index}
+                      item
+                      xs={12}
+                      sm={4} // Adjust this as needed for tablet size
+                      md={3} // Adjust this as needed for desktop size
+                      lg={3} // Adjust this as needed for larger screens
+                    >
+                      {
+                        item.type === "dropdown" && (
+                          <FilterField
+                            FilterArea={item}
+                            filterState={filterState}
+                            setFilterState={setFilterState}
 
-    
+                            // setData={setFilteredData}
+                            // initialData={filteredData}
+                            // data={initialData}
+                          />
+                        )
+                        // : (
+                        //   <></>
+                        // )
+                      }
+                    </Grid>
+                  )
+              )} */}
+            </Grid>
+          </Paper>
+        </Collapse>
       ) : null}
 
       <Paper sx={{ width: "100%", mb: 2, borderRadius: 0, overflow: "hidden" }}>
@@ -284,8 +384,7 @@ export default function EnhancedTable({
                 <StyledTableRow hover>
                   <StyledTableCell colSpan={headCells.length + 1}>
                     <div className="p-2 d-flex justify-content-center">
-
-                    <Button>No Data Found</Button>
+                      <Button>No Data Found</Button>
                     </div>
                   </StyledTableCell>
                 </StyledTableRow>
@@ -294,63 +393,58 @@ export default function EnhancedTable({
           </Table>
         </TableContainer>
         <TablePagination
-  rowsPerPageOptions={[15, 20, 25]}
-  component="div"
-  count={filterdData.length}
-  rowsPerPage={rowsPerPage}
-  page={page}
-  onPageChange={handleChangePage}
-  onRowsPerPageChange={handleChangeRowsPerPage}
-  sx={{
-    justifyContent: "space-between",
-    display: "flex",
-    width: "100%", // Ensures the main container is full width
-    "& .MuiTablePagination-root": {
-      width: "100%", // Sets the width of the pagination root div
-    },
-    "& > div": {
-      width: "100%", // Sets width for the immediate child div
-    },
-    "& .MuiTablePagination-spacer": {
-      display: "none", // Hides the spacer element
-    },
-    "& .MuiTablePagination-toolbar": {
-      margin: 0, // Remove margin from the toolbar
-    },
-    "& .MuiTablePagination-selectRoot": {
-      margin: 0, // Remove margin from the select dropdown
-    },
-    "& .MuiButtonBase-root": {
-      margin: 0, // Remove margin from buttons
-    },
-    "& .MuiTypography-root": {
-      margin: 0, // Remove margin from typography
-    },
-    "& .MuiTablePagination-displayedRows": {
-      margin: 0, // Remove margin from displayed rows
-      marginLeft: "auto", // Apply margin-left: auto to align to the right
-    },
-    "& #\\:r5\\:": {
-      justifySelf: "flex-end", // Align specific element with ID to flex-end
-    },
-    "& .MuiTablePagination-selectLabel": {
-      margin: 0, // Remove margin for select label
-      justifySelf: "flex-start", // Align select label to flex-start
-    },
-  }}
-/>
-
-
-
-
-
+          rowsPerPageOptions={[15, 20, 25]}
+          component="div"
+          count={filteredData.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{
+            justifyContent: "space-between",
+            display: "flex",
+            width: "100%", // Ensures the main container is full width
+            "& .MuiTablePagination-root": {
+              width: "100%", // Sets the width of the pagination root div
+            },
+            "& > div": {
+              width: "100%", // Sets width for the immediate child div
+            },
+            "& .MuiTablePagination-spacer": {
+              display: "none", // Hides the spacer element
+            },
+            "& .MuiTablePagination-toolbar": {
+              margin: 0, // Remove margin from the toolbar
+            },
+            "& .MuiTablePagination-selectRoot": {
+              margin: 0, // Remove margin from the select dropdown
+            },
+            "& .MuiButtonBase-root": {
+              margin: 0, // Remove margin from buttons
+            },
+            "& .MuiTypography-root": {
+              margin: 0, // Remove margin from typography
+            },
+            "& .MuiTablePagination-displayedRows": {
+              margin: 0, // Remove margin from displayed rows
+              marginLeft: "auto", // Apply margin-left: auto to align to the right
+            },
+            "& #\\:r5\\:": {
+              justifySelf: "flex-end", // Align specific element with ID to flex-end
+            },
+            "& .MuiTablePagination-selectLabel": {
+              margin: 0, // Remove margin for select label
+              justifySelf: "flex-start", // Align select label to flex-start
+            },
+          }}
+        />
       </Paper>
     </Box>
   );
 }
 EnhancedTable.propTypes = {
   initialData: PropTypes.arrayOf(PropTypes.object).isRequired, // Validate 'data' as an array of objects
-  FieldAarray: PropTypes.arrayOf(PropTypes.any).isRequired,
+  FieldArray: PropTypes.arrayOf(PropTypes.any).isRequired,
   setData: PropTypes.any, // Validate 'setData'
   initialData: PropTypes.any, // Validate 'initialData ' as an array (could specify type inside 'any')
   ActionsList: PropTypes.array, // Validate

@@ -1,194 +1,203 @@
 import TableData from "components/TableData";
+import FiltrationsArray from "data/FiltrationsArray";
 export const Cars = () => {
-  const FieldAarray = [
-    {
-      inputLabel: "Date & Time ",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-    {
-      inputLabel: "Supplier ",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-    {
-      inputLabel: "Provider Markup",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
+  // const FieldArray = [
+  //   {
+  //     inputLabel: "Date & Time ",
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: "supplier ",
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: provider_markup,
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
 
-    {
-      inputLabel: "Agent Markup",
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-  ];
+  //   {
+  //     inputLabel: agent_markup,
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  // ];
   const initialData = [
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "1",
-      Supplier: "Jenkins and Sons",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "1",
+      supplier: "Jenkins and Sons",
 
-      "No. Bookings": "250",
-      "Car Payable": "West Richmondstad",
+      number_of_bookings: "250",
+      car_payable: "West Richmondstad",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "Active",
-      "Ticket  Status ": "Active",
-      "View Booking ": "VIEW",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "Active",
+      ticket_status: "Active",
+      view_booking: "VIEW",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "2",
-      Supplier: "Bins - Kulas",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "2",
+      supplier: "Bins - Kulas",
 
-      "No. Bookings": "250",
-      "Car Payable": "West Roscoestad",
+      number_of_bookings: "250",
+      car_payable: "West Roscoestad",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-Active",
-      "Ticket  Status ": "De-Active",
-      "View Booking ": "VIEW",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-Active",
+      ticket_status: "De-Active",
+      view_booking: "VIEW",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "3",
-      Supplier: "Herzog - Pollich",
-      "No. Bookings": "250",
-      "Car Payable": "West Richmondstad",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "3",
+      supplier: "Herzog - Pollich",
+      number_of_bookings: "250",
+      car_payable: "West Richmondstad",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-Active",
-      "Ticket  Status ": "De-Active",
-      "View Booking ": "VIEW",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-Active",
+      ticket_status: "De-Active",
+      view_booking: "VIEW",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "4",
-      Supplier: "Daugherty Group",
-      "No. Bookings": "250",
-      "Car Payable": "Annetteborough",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "4",
+      supplier: "Daugherty Group",
+      number_of_bookings: "250",
+      car_payable: "Annetteborough",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-active",
-      "Ticket  Status ": "De-Active",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-active",
+      ticket_status: "De-Active",
 
-      "View Booking ": "VIEW",
+      view_booking: "VIEW",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "5",
-      Supplier: "Rodriguez Group",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "5",
+      supplier: "Rodriguez Group",
 
-      "No. Bookings": "250",
-      "Car Payable": "South Lazarotown",
+      number_of_bookings: "250",
+      car_payable: "South Lazarotown",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "Active",
-      "Ticket  Status ": "Active",
-      "View Booking ": "VIEW",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "Active",
+      ticket_status: "Active",
+      view_booking: "VIEW",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "6",
-      Supplier: "Greenholt, Schuster and Russel",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "6",
+      supplier: "Greenholt, Schuster and Russel",
 
-      "No. Bookings": "250",
-      "Car Payable": "Ernestfort",
+      number_of_bookings: "250",
+      car_payable: "Ernestfort",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-active",
-      "View Booking ": "VIEW",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-active",
+      view_booking: "VIEW",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "7",
-      Supplier: "Medhurst - Schimmel",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "7",
+      supplier: "Medhurst - Schimmel",
 
-      "No. Bookings": "250",
-      "Car Payable": "South Finnside",
+      number_of_bookings: "250",
+      car_payable: "South Finnside",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "Active",
-      "Ticket  Status ": "Active",
-      "View Booking ": "VIEW",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "Active",
+      ticket_status: "Active",
+      view_booking: "VIEW",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "11",
-      Supplier: "Huels - Berge",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "11",
+      supplier: "Huels - Berge",
 
-      "No. Bookings": "250",
-      "Car Payable": "Jensenton",
+      number_of_bookings: "250",
+      car_payable: "Jensenton",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-active",
-      "View Booking ": "VIEW",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-active",
+      view_booking: "VIEW",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "8",
-      Supplier: "Berge Inc",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "8",
+      supplier: "Berge Inc",
 
-      "No. Bookings": "250",
-      "Car Payable": "East Daphney",
+      number_of_bookings: "250",
+      car_payable: "East Daphney",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "Active",
-      "Ticket  Status ": "Active",
-      "View Booking ": "VIEW",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "Active",
+      ticket_status: "Active",
+      view_booking: "VIEW",
     },
     {
-      "Date & Time": "2024-10-10",
-      "Booking Ref. No": "9",
-      Supplier: "Davis - Ruecker",
+      date_and_time: "2024-10-10",
+      booking_ref_number: "9",
+      supplier: "Davis - Ruecker",
 
-      "No. Bookings": "250",
-      "Car Payable": "East Daphney",
+      number_of_bookings: "250",
+      car_payable: "East Daphney",
       VAT: "0 AED",
-      "Provider Markup": "100",
-      "Agent Markup": "350",
-      "Booking Status ": "De-active",
+      provider_markup: "100",
+      agent_markup: "350",
+      booking_status: "De-active",
 
-      "View Booking ": "VIEW",
+      view_booking: "VIEW",
     },
   ];
   return (
     <TableData
-      FieldAarray={FieldAarray}
+      FieldArray={FiltrationsArray({
+        keysList: [
+          "date_and_time",
+          "supplier",
+          "provider_markup",
+          "agent_markup",
+        ],
+        dataList: initialData,
+      })}
       initialData={initialData} // Pass the full initial data set/
     />
   );

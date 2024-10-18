@@ -11,6 +11,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import swal from "sweetalert";
 import BlockIcon from "@mui/icons-material/Block";
+import FiltrationsArray from "data/FiltrationsArray";
 function B2CUsers() {
   const FieldAarray = [
     {
@@ -25,7 +26,7 @@ function B2CUsers() {
       ],
     },
     {
-      inputLabel: "Domain Name",
+      inputLabel: domain_name,
       data: [
         {
           value: ".com",
@@ -58,7 +59,7 @@ function B2CUsers() {
       ],
     },
     {
-      inputLabel: "No. Bookings",
+      inputLabel: number_of_bookings,
       data: [
         {
           value: "One",
@@ -71,85 +72,83 @@ function B2CUsers() {
   ];
   const initialData = [
     {
-      "User ID": 2654,
-      "User name": "Mohamed Gaber",
-      "Domain Name": ".com",
-      Contact: "a",
-      Email: "demo@gmail.com",
-      "No. Bookings": 250,
+      user_id: 2654,
+      user_name: "Mohamed Gaber",
+      domain_name: ".com",
+      contact: "a",
+      email: "demo@gmail.com",
+      number_of_bookings: 250,
       status: true,
     },
     {
-      "User ID": 132132,
-      "User name": "Mohamed Gaber",
-      "Domain Name": ".com",
+      user_id: 132132,
+      user_name: "Mohamed Gaber",
+      domain_name: ".com",
       contact: "b",
-      Email: "demo@gmail.com",
-      "No. Bookings": 250,
+      email: "demo@gmail.com",
+      number_of_bookings: 250,
 
       status: false,
     },
 
     {
-      "User ID": 5423,
-      "User name": "Mohamed Gaber",
-      "Domain Name": ".com",
-      Contact: "c",
-      Email: "demo@gmail.com",
-      "No. Bookings": 250,
+      user_id: 5423,
+      user_name: "Mohamed Gaber",
+      domain_name: ".com",
+      contact: "c",
+      email: "demo@gmail.com",
+      number_of_bookings: 250,
 
       status: false,
     },
 
     {
-      "User ID": 512312,
-      "User name": "Mohamed Gaber",
-      "Domain Name": ".com",
-      Contact: "d",
-      Email: "demo@gmail.com",
-      "No. Bookings": 250,
+      user_id: 512312,
+      user_name: "Mohamed Gaber",
+      domain_name: ".com",
+      contact: "d",
+      email: "demo@gmail.com",
+      number_of_bookings: 250,
 
       status: true,
     },
 
     {
-      "User ID": 1966,
-      "User name": "Mohamed Gaber",
-      "Domain Name": ".com",
-      Contact: "e",
-      Email: "demo@gmail.com",
-      "No. Bookings": 250,
-
+      user_id: 1966,
+      user_name: "Mohamed Gaber",
+      domain_name: ".com",
+      contact: "e",
+      email: "demo@gmail.com",
+      number_of_bookings: 250,
       status: false,
     },
     {
-      "User ID": 8798,
-      "User name": "Mohamed Gaber",
-      "Domain Name": ".com",
-      Contact: "a",
-      Email: "demo@gmail.com",
-      "No. Bookings": 250,
-
+      user_id: 8798,
+      user_name: "Mohamed Gaber",
+      domain_name: ".com",
+      contact: "a",
+      email: "demo@gmail.com",
+      number_of_bookings: 250,
       status: true,
     },
     {
-      "User ID": 63665,
-      "User name": "Mohamed Gaber",
-      "Domain Name": ".net",
+      user_id: 63665,
+      user_name: "Mohamed Gaber",
+      domain_name: ".net",
       contact: "b",
-      Email: "demo@gmail.com",
-      "No. Bookings": 250,
+      email: "demo@gmail.com",
+      number_of_bookings: 250,
 
       status: true,
     },
 
     {
-      "User ID": 58789,
-      "User name": "Mohamed Gaber",
-      "Domain Name": "net",
-      Contact: "c",
-      Email: "demo@gmail.com",
-      "No. Bookings": 250,
+      user_id: 58789,
+      user_name: "Mohamed Gaber",
+      domain_name: "net",
+      contact: "c",
+      email: "demo@gmail.com",
+      number_of_bookings: 250,
 
       status: false,
     },
@@ -158,12 +157,12 @@ function B2CUsers() {
     {
       icon: <BookIcon />,
       content: "View Bookings",
-      action: "/UsersManagemnt/b2c-users/:Id/ViewBookins",
+      action: "/UsersManagement/b2c-users/:Id/ViewBookings",
     },
     {
       icon: <AccountBalanceIcon />,
       content: "Balance Management",
-      action: "/UsersManagemnt/b2c-users/:Id/Agent-Deposit-Management",
+      action: "/UsersManagement/b2c-users/:Id/Agent-Deposit-Management",
     },
     {
       icon: <EditIcon />,
@@ -189,14 +188,18 @@ function B2CUsers() {
         }),
     },
   ];
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <TableData
-        FieldAarray={FieldAarray}
+      {/* <TableData
+        FieldArray={FiltrationsArray({
+          keysList: ["domain_name", "status", "balance", "number_of_bookings"],
+          dataList: initialData,
+        })}
         initialData={initialData} // Pass the full initial data set/
-        ActionsList={ActionsList}
-      />
+        ActionsList={[]}
+      /> */}
     </DashboardLayout>
   );
 }

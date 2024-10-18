@@ -1,4 +1,4 @@
-export  const data = [
+export const data = [
   {
     id: 2,
     created_at: "2023-04-19T00:00:00+00:00",

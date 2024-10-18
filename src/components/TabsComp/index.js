@@ -47,8 +47,9 @@ export default function TabsComb() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box>
+      <Box >
         <Tabs
+        
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
