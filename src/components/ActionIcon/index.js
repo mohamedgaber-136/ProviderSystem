@@ -10,7 +10,6 @@ const ITEM_HEIGHT = 48;
 
 export default function LongMenu({ ActionsList, row }) {
   const { Id } = useParams();
-  console.log(Id, "id in long menu");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -23,6 +22,7 @@ export default function LongMenu({ ActionsList, row }) {
     setAnchorEl(null);
   };
   const handleMenuItemClick = (action) => {
+    console.log(row, "row actions list");
     if (typeof action === "function") {
       action(row.id); // Execute if action is a function (like swal alert)
     } else if (typeof action === "string" && action) {

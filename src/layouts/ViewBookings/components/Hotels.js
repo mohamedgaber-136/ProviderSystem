@@ -1,18 +1,7 @@
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import TableData from "components/TableData";
-import GroupIcon from "@mui/icons-material/Group";
-import PaymentIcon from "@mui/icons-material/Payment";
-import SecurityIcon from "@mui/icons-material/Security";
-import BookIcon from "@mui/icons-material/Book";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import swal from "sweetalert";
-import BlockIcon from "@mui/icons-material/Block";
 import FiltrationsArray from "data/FiltrationsArray";
 
-export const Transfer = () => {
+export const Hotels = () => {
   // const FieldArray = [
   //   {
   //     inputLabel: "Date & Time ",
@@ -47,7 +36,6 @@ export const Transfer = () => {
   //       },
   //     ],
   //   },
-
   //   {
   //     inputLabel: agent_markup,
   //     data: [
@@ -63,28 +51,26 @@ export const Transfer = () => {
   const initialData = [
     {
       date_and_time: "2024-10-10",
-      booking_ref_number: "6",
+      booking_ref_number: "1",
       supplier: "Jenkins and Sons",
-
       number_of_bookings: "250",
-      car_payable: "West Richmondstad",
-      VAT: "2 AED",
+      hotel_paypal: "West Richmondstad",
+      VAT: "0 AED",
       provider_markup: "100",
-      agent_markup: "250",
-      booking_status: "De-active",
+      agent_markup: "350",
+      status: true,
       view_booking: "View",
     },
     {
       date_and_time: "2024-10-10",
       booking_ref_number: "2",
       supplier: "Bins - Kulas",
-
       number_of_bookings: "250",
-      car_payable: "West Roscoestad",
+      hotel_paypal: "West Roscoestad",
       VAT: "0 AED",
       provider_markup: "100",
       agent_markup: "350",
-      booking_status: "De-Active",
+      status: false,
       view_booking: "View",
     },
     {
@@ -92,63 +78,59 @@ export const Transfer = () => {
       booking_ref_number: "3",
       supplier: "Herzog - Pollich",
       number_of_bookings: "250",
-      car_payable: "West Richmondstad",
+      hotel_paypal: "West Richmondstad",
       VAT: "0 AED",
       provider_markup: "100",
       agent_markup: "350",
-      booking_status: "De-Active",
+      status: false,
       view_booking: "View",
     },
     {
       date_and_time: "2024-10-10",
       booking_ref_number: "4",
       supplier: "Daugherty Group",
-
       number_of_bookings: "250",
-      car_payable: "Annetteborough",
+      hotel_paypal: "Annetteborough",
       VAT: "0 AED",
       provider_markup: "100",
       agent_markup: "350",
-      booking_status: "De-active",
+      status: false,
       view_booking: "View",
     },
     {
       date_and_time: "2024-10-10",
       booking_ref_number: "5",
       supplier: "Rodriguez Group",
-
       number_of_bookings: "250",
-      car_payable: "South Lazarotown",
+      hotel_paypal: "South Lazarotown",
       VAT: "0 AED",
       provider_markup: "100",
       agent_markup: "350",
-      booking_status: "Active",
+      status: true,
       view_booking: "View",
     },
     {
       date_and_time: "2024-10-10",
       booking_ref_number: "6",
       supplier: "Greenholt, Schuster and Russel",
-
       number_of_bookings: "250",
-      car_payable: "Ernestfort",
+      hotel_paypal: "Ernestfort",
       VAT: "0 AED",
       provider_markup: "100",
       agent_markup: "350",
-      booking_status: "De-active",
+      status: false,
       view_booking: "View",
     },
     {
       date_and_time: "2024-10-10",
       booking_ref_number: "7",
       supplier: "Medhurst - Schimmel",
-
       number_of_bookings: "250",
-      car_payable: "South Finnside",
+      hotel_paypal: "South Finnside",
       VAT: "0 AED",
       provider_markup: "100",
       agent_markup: "350",
-      booking_status: "Active",
+      status: true,
       view_booking: "View",
     },
     {
@@ -157,41 +139,39 @@ export const Transfer = () => {
       supplier: "Huels - Berge",
 
       number_of_bookings: "250",
-      car_payable: "Jensenton",
+      hotel_paypal: "Jensenton",
       VAT: "0 AED",
       provider_markup: "100",
       agent_markup: "350",
-      booking_status: "De-active",
+      status: false,
       view_booking: "View",
     },
     {
       date_and_time: "2024-10-10",
       booking_ref_number: "8",
       supplier: "Berge Inc",
-
       number_of_bookings: "250",
-      car_payable: "East Daphney",
+      hotel_paypal: "East Daphney",
       VAT: "0 AED",
       provider_markup: "100",
       agent_markup: "350",
-      booking_status: "Active",
+      status: true,
       view_booking: "View",
     },
     {
       date_and_time: "2024-10-10",
       booking_ref_number: "9",
       supplier: "Davis - Ruecker",
-
       number_of_bookings: "250",
-      car_payable: "East Daphney",
+      hotel_paypal: "East Daphney",
       VAT: "0 AED",
       provider_markup: "100",
       agent_markup: "350",
-      booking_status: "De-active",
-
+      status: false,
       view_booking: "View",
     },
   ];
+
   return (
     <TableData
       FieldArray={FiltrationsArray({

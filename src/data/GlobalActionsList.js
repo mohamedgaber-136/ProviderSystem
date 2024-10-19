@@ -1,8 +1,3 @@
-// Material Dashboard 2 React example components
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import TableData from "components/TableData";
-import GroupIcon from "@mui/icons-material/Group";
 import PaymentIcon from "@mui/icons-material/Payment";
 import SecurityIcon from "@mui/icons-material/Security";
 import BookIcon from "@mui/icons-material/Book";
@@ -11,16 +6,18 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import swal from "sweetalert";
 import BlockIcon from "@mui/icons-material/Block";
-import { data } from "data/B2B_Users";
-import FiltrationsArray from "data/FiltrationsArray";
-function B2BUsers() {
-  const ActionsList = [
+import GroupIcon from "@mui/icons-material/Group";
+
+export const GetActionsList = ({ userType, keysList }) => {
+  const mainActionList = [
     {
+      key: "sub_users",
       icon: <GroupIcon />,
       content: "Sub Users",
-      action: "/UsersManagement/b2b-users/:Id/SubUsers",
+      action: `/UsersManagement/${userType}/:Id/SubUsers`,
     },
     {
+      key: "de_active",
       icon: <BlockIcon />,
       content: "De-Active",
       action: () => {
@@ -29,31 +26,37 @@ function B2BUsers() {
       },
     },
     {
+      key: "payment_options",
       icon: <PaymentIcon />,
       content: "Payment Options",
-      action: "/UsersManagement/b2b-users/:Id/PaymentOption",
+      action: `/UsersManagement/${userType}/:Id/PaymentOption`,
     },
     {
+      key: "manage_privileges",
       icon: <SecurityIcon />,
       content: "Manage Privileges",
-      action: "/UsersManagement/b2b-users/:Id/UpdatePrivileges",
+      action: `/UsersManagement/${userType}/:Id/UpdatePrivileges`,
     },
     {
+      key: "view_bookings",
       icon: <BookIcon />,
       content: "View Bookings",
-      action: "/UsersManagement/b2b-users/:Id/ViewBookings",
+      action: `/UsersManagement/${userType}/:Id/ViewBookings`,
     },
     {
+      key: "balance_management",
       icon: <AccountBalanceIcon />,
       content: "Balance Management",
-      action: "/UsersManagement/b2b-users/:Id/Agent-Deposit-Management",
+      action: `/UsersManagement/${userType}/:Id/Agent-Deposit-Management`,
     },
     {
+      key: "view_and_edit",
       icon: <EditIcon />,
       content: "View & Edit User",
-      action: "/UsersManagement/b2b-users/:Id/ViewAndEditUser",
+      action: `/UsersManagement/${userType}/:Id/ViewAndEditUser`,
     },
     {
+      key: "delete_user",
       icon: <DeleteIcon />,
       content: "Delete User",
       action: (Id) =>
@@ -72,27 +75,5 @@ function B2BUsers() {
         }),
     },
   ];
-
-  return (
-    <DashboardLayout>
-      <DashboardNavbar />
-      <TableData
-        FieldArray={FiltrationsArray({
-          keysList: [
-            "number_of_bookings",
-            "balance",
-            // "sub_users",
-            // "booking",
-            "country",
-            "region",
-            "status",
-          ],
-          dataList: data,
-        })}
-        initialData={data} // Pass the full initial data set/
-        ActionsList={ActionsList}
-      />
-    </DashboardLayout>
-  );
-}
-export default B2BUsers;
+  return mainActionList.filter((item) => keysList.includes(item.key));
+};

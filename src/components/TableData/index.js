@@ -25,7 +25,11 @@ export default function EnhancedTable({
   initialData,
   FieldArray,
   ActionsList,
+  ButtonLabel = "",
+  onButtonClick,
+  MergeList = [],
 }) {
+  console.log(MergeList, "MergeList");
   const [order, setOrder] = useState("asc");
   const [selected, setSelected] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
@@ -44,8 +48,10 @@ export default function EnhancedTable({
     Object.keys(filterState).forEach((filterKey) => {
       const filterValue = filterState[filterKey];
       console.log(filterState, "filterState");
-      if (filterKey !== "All" && typeof filterValue !== "object") {
-        console.log("not all and not date");
+      if (
+        typeof filterValue !== "object" &&
+        filterState[filterKey]?.toLowerCase() !== "all"
+      ) {
         resultData = resultData.filter((item) =>
           item[filterKey]
             ?.toString()
@@ -53,41 +59,23 @@ export default function EnhancedTable({
             .includes(filterValue.toLowerCase())
         );
       } else if (filterState[filterKey].type === "date") {
-        console.log("HELLO HELLO");
         resultData = resultData.filter(
           (item) =>
             new Date(item[filterKey]) >= new Date(filterValue.startDate) &&
             new Date(item[filterKey]) <= new Date(filterValue.endDate)
         );
-        console.log(resultData, "resultData");
       } else if (filterState[filterKey].type === "number") {
-        console.log("HELLO HELLO NUMBER");
         resultData = resultData.filter(
           (item) =>
             item[filterKey] >= filterValue.min &&
             item[filterKey] <= filterValue.max
         );
-        console.log(resultData, "resultData");
       }
-      // if (filterValue && filterValue !== "All") {
-      //   if (filterKey === "date") {
-      //     resultData = resultData.filter(
-      //       (item) =>
-      //         new Date(item.date) >= new Date(filterValue.startDate) &&
-      //         new Date(item.date) <= new Date(filterValue.endDate)
-      //     );
-      //   } else {
-      //     // will edit
-      //     resultData = resultData.filter((item) =>
-      //       item[filterKey]
-      //         ?.toString()
-      //         ?.toLowerCase()
-      //         .includes(filterValue.toLowerCase())
-      //     );
-      //   }
+      // else if (filterState[filterKey].toLowerCase() === "all") {
+      //   resultData = [...initialData];
       // }
     });
-
+    console.log(resultData, "filtered data");
     setFilteredData(resultData);
   };
 
@@ -107,19 +95,35 @@ export default function EnhancedTable({
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
+
   // Creating Dynamic HeadCells ----------------------------
   const createHeadCells = (data) => {
     const keys = Object.keys(data[0] || {});
-    return keys.map((key) => ({
-      id: key,
-      numeric: typeof data[0][key] === "number",
-      disablePadding: false,
-      label: key.charAt(0).toUpperCase() + key.slice(1),
-      // label: key
-      //   .split("_")
-      //   .map((item) => item.charAt(0).toUpperCase() + item.slice(1))
-      //   .join(" "),
-    }));
+    const result = keys.map((key) => {
+      const mergeObject = MergeList.find((mergeObj) => mergeObj.first === key);
+      if (mergeObject) {
+        const itemKey = mergeObject.mergeLabel;
+        console.log(mergeObject, "mergeObject");
+        return {
+          id: itemKey,
+          numeric: typeof data[0][key] === "number",
+          disablePadding: false,
+          label: modifyLabelText(itemKey),
+          merge: true,
+        };
+      }
+      if (MergeList.map(({ second }) => second).includes(key)) {
+        return false;
+      }
+      return {
+        id: key,
+        numeric: typeof data[0][key] === "number",
+        disablePadding: false,
+        label: modifyLabelText(key),
+      };
+    });
+    console.log(result, "updated keys");
+    return result;
   };
 
   const headCells = createHeadCells(initialData);
@@ -135,35 +139,42 @@ export default function EnhancedTable({
         sx={{ display: "table-header-group", backgroundColor: "#1c3c5a" }}
       >
         <TableRow>
-          {headCells.map((headCell) => (
-            <TableCell
-              key={headCell.id}
-              align={headCell.numeric ? "center" : "center"}
-              sortDirection={orderBy === headCell.id ? order : false}
-              sx={{ borderRadius: 0 }} // This line removes the border radius
-            >
-              <TableSortLabel
-                active={orderBy === headCell.id}
-                direction={orderBy === headCell.id ? order : "asc"}
-                onClick={createSortHandler(headCell.id)}
-                sx={{
-                  color: "white !important", // Ensures white color always
-                  "&:hover": { color: "white !important" }, // Ensures white on hover
-                  "&.Mui-active": { color: "white !important" }, // Ensures white on active
-                  "& .MuiTableSortLabel-icon": { color: "white !important" }, // Ensures icon is white
-                }}
-              >
-                {headCell.label}
-                {orderBy === headCell.id ? (
-                  <Box component="span" sx={visuallyHidden}>
-                    {order === "desc"
-                      ? "sorted descending"
-                      : "sorted ascending"}
-                  </Box>
-                ) : null}
-              </TableSortLabel>
-            </TableCell>
-          ))}
+          {headCells.map(
+            (headCell) =>
+              // If it's email or contact_number, don't render a label in the header
+              // add a condation to set one cell for the composed header
+              headCell && (
+                <TableCell
+                  key={headCell.id}
+                  align={headCell.numeric ? "center" : "center"}
+                  sortDirection={orderBy === headCell.id ? order : false}
+                  sx={{ borderRadius: 0 }} // This line removes the border radius
+                >
+                  <TableSortLabel
+                    active={orderBy === headCell.id}
+                    direction={orderBy === headCell.id ? order : "asc"}
+                    onClick={createSortHandler(headCell.id)}
+                    sx={{
+                      color: "white !important", // Ensures white color always
+                      "&:hover": { color: "white !important" }, // Ensures white on hover
+                      "&.Mui-active": { color: "white !important" }, // Ensures white on active
+                      "& .MuiTableSortLabel-icon": {
+                        color: "white !important",
+                      }, // Ensures icon is white
+                    }}
+                  >
+                    {headCell.label}
+                    {orderBy === headCell.id ? (
+                      <Box component="span" sx={visuallyHidden}>
+                        {order === "desc"
+                          ? "sorted descending"
+                          : "sorted ascending"}
+                      </Box>
+                    ) : null}
+                  </TableSortLabel>
+                </TableCell>
+              )
+          )}
           {ActionsList ? (
             <TableCell sx={{ borderRadius: 0 }}>Actions</TableCell>
           ) : null}
@@ -225,8 +236,9 @@ export default function EnhancedTable({
       })
     ).isRequired,
   };
+
   const checkKeys = (key, row) => {
-    if (key.toLowerCase() === "status") {
+    if (key.toLowerCase().includes("status")) {
       return (
         <StyledTableCell align="center" key={key}>
           <Button
@@ -250,19 +262,58 @@ export default function EnhancedTable({
           />
         </StyledTableCell>
       );
-    } else {
+    }
+    const firstFound = MergeList.find(({ first }) => first === key);
+    const secondFound = MergeList.find(({ second }) => second === key);
+    if (firstFound) {
       return (
-        <StyledTableCell
-          align={typeof row[key] === "number" ? "center" : "center"}
-          key={key}
-        >
-          <Button>{row[key]}</Button>
+        <StyledTableCell align="center">
+          <Button className="d-flex flex-column align-items-center">
+            {Object.values(firstFound).map((keyItem) => (
+              <div key={keyItem}>
+                <small> {row[keyItem]}</small>
+              </div>
+            ))}
+          </Button>
         </StyledTableCell>
       );
+    } else if (secondFound) {
+      return null;
     }
+
+    return (
+      <StyledTableCell
+        align={typeof row[key] === "number" ? "center" : "center"}
+        key={key}
+      >
+        <Button>{row[key]}</Button>
+      </StyledTableCell>
+    );
   };
+
+  function modifyLabelText(text) {
+    return text
+      .split("_")
+      .map((item) => item.charAt(0).toUpperCase() + item.slice(1))
+      .join(" ");
+    // return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
   return (
     <Box sx={{ width: "100%" }}>
+      {ButtonLabel && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "end",
+            marginBlock: 2,
+          }}
+        >
+          <MDButton color="dark" variant="outlined" onClick={onButtonClick}>
+            {ButtonLabel}
+          </MDButton>
+        </Box>
+      )}
       <Box
         sx={{
           display: "flex",
@@ -372,6 +423,10 @@ export default function EnhancedTable({
               {visibleRows.length ? (
                 visibleRows.map((row, index) => (
                   <StyledTableRow hover key={`row-${index}`}>
+                    {/* Render the merged email and contact number column */}
+                    {/* {renderEmailAndContact(row)} */}
+
+                    {/* Render other cells */}
                     {Object.keys(row).map((key) => checkKeys(key, row))}
                     {ActionsList ? (
                       <StyledTableCell>
@@ -379,6 +434,15 @@ export default function EnhancedTable({
                       </StyledTableCell>
                     ) : null}
                   </StyledTableRow>
+
+                  // <StyledTableRow hover key={`row-${index}`}>
+                  //   {Object.keys(row).map((key) => checkKeys(key, row))}
+                  //   {ActionsList ? (
+                  //     <StyledTableCell>
+                  //       <LongMenu ActionsList={ActionsList} row={row} />
+                  //     </StyledTableCell>
+                  //   ) : null}
+                  // </StyledTableRow>
                 ))
               ) : (
                 <StyledTableRow hover>
@@ -448,4 +512,7 @@ EnhancedTable.propTypes = {
   setData: PropTypes.any, // Validate 'setData'
   initialData: PropTypes.any, // Validate 'initialData ' as an array (could specify type inside 'any')
   ActionsList: PropTypes.array, // Validate
+  ButtonLabel: PropTypes.string,
+  onButtonClick: PropTypes.func,
+  MergeList: PropTypes.arrayOf(PropTypes.object),
 };

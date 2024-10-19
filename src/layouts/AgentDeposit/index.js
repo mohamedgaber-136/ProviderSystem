@@ -3,7 +3,6 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import TableData from "components/TableData";
 const AgentDeposit = () => {
-
   const initialData = [
     {
       "S.No": "1",
@@ -14,7 +13,7 @@ const AgentDeposit = () => {
       Credit: "2000",
       Balance: "0",
       Remarks: "0",
-      Status: "Active",
+      Status: true,
     },
     {
       "S.No": "13",
@@ -25,7 +24,7 @@ const AgentDeposit = () => {
       Credit: "2000",
       Balance: "0",
       Remarks: "0",
-      Status: "Active",
+      Status: false,
     },
     {
       "S.No": "16",
@@ -36,7 +35,7 @@ const AgentDeposit = () => {
       Credit: "2000",
       Balance: "0",
       Remarks: "0",
-      Status: "Active",
+      Status: true,
     },
     {
       "S.No": "17",
@@ -47,7 +46,7 @@ const AgentDeposit = () => {
       Credit: "2000",
       Balance: "0",
       Remarks: "0",
-      Status: "Active",
+      Status: false,
     },
     {
       "S.No": "11",
@@ -58,7 +57,7 @@ const AgentDeposit = () => {
       Credit: "2000",
       Balance: "0",
       Remarks: "0",
-      Status: "Active",
+      Status: true,
     },
     {
       "S.No": "13",
@@ -69,7 +68,7 @@ const AgentDeposit = () => {
       Credit: "2000",
       Balance: "0",
       Remarks: "0",
-      Status: "Active",
+      Status: true,
     },
     {
       "S.No": "14",
@@ -80,7 +79,7 @@ const AgentDeposit = () => {
       Credit: "2000",
       Balance: "0",
       Remarks: "0",
-      Status: "Active",
+      Status: false,
     },
   ];
   return (

@@ -140,7 +140,7 @@ function PaymentOption() {
       </Paper>
     </Container>
   );
-  const DepoistPatment = (
+  const DepositPayment = (
     <Container>
       {/* Second Paper */}
       <Paper sx={{ padding: "25px" }}>
@@ -196,7 +196,7 @@ function PaymentOption() {
     <DashboardLayout>
       <DashboardNavbar />
       <FormData FormInfo={PaymentOptions} />
-      <FormData FormInfo={DepoistPatment} />
+      <FormData FormInfo={DepositPayment} />
     </DashboardLayout>
   );
 }

@@ -1,13 +1,13 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import { Flights } from 'layouts/b2BUsers/Flights';
-import { Hotels } from 'layouts/b2BUsers/Hotels';
-import { Cars } from 'layouts/b2BUsers/Car';
-import { Insurance } from 'layouts/b2BUsers/Insurance';
-import { Transfer } from 'layouts/b2BUsers/Transfer';
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import { Flights } from "layouts/ViewBookings/components/Flights";
+import { Hotels } from "layouts/ViewBookings/components/Hotels";
+import { Cars } from "layouts/ViewBookings/components/Car";
+import { Insurance } from "layouts/ViewBookings/components/Insurance";
+import { Transfer } from "layouts/ViewBookings/components/Transfer";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -34,11 +34,11 @@ CustomTabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
-export default function TabsComb() {
+export default function TabsComp() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -46,24 +46,22 @@ export default function TabsComb() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box >
+    <Box sx={{ width: "100%" }}>
+      <Box>
         <Tabs
-        
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
           sx={{
-            '& .MuiTab-root': {
-              backgroundColor: 'transparent', // Default background for inactive tabs
-              color: 'text.primary', // Default text color
-              transition: 'background-color 0.3s ease', // Smooth transition for background color
+            "& .MuiTab-root": {
+              backgroundColor: "transparent", // Default background for inactive tabs
+              color: "text.primary", // Default text color
+              transition: "background-color 0.3s ease", // Smooth transition for background color
             },
-            '& .Mui-selected': {
-              backgroundColor: '#1c3c5a', // Background color for the active tab
-              color: 'white !important', // Optional: Change text color for active tab
+            "& .Mui-selected": {
+              backgroundColor: "#1c3c5a", // Background color for the active tab
+              color: "white !important", // Optional: Change text color for active tab
             },
-           
           }}
         >
           <Tab label="Flights" {...a11yProps(0)} />

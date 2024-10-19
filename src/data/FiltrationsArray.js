@@ -17,7 +17,9 @@ const FiltrationsArray = ({ keysList, dataList }) => {
       });
       return {
         id: key,
-        type: ["balance", "number_of_bookings"].includes(key)
+        type: ["balance", "number_of_bookings", "holding_bookings"].includes(
+          key
+        )
           ? "num_range"
           : ["date_and_time"].includes(key)
           ? "date_range"

@@ -19,37 +19,38 @@ import { useState } from "react";
 import { CheckBoxComp } from "components/CheckBoxComp";
 import { CheckBoxCompFlights } from "components/CheckBoxFlights";
 import { useNavigate } from "react-router-dom";
-function UpdatePrivilegesSubUser() {
+import { PropTypes } from "prop-types";
+function ManagePrivileges({ PrivilegeBoxes }) {
   const navigate = useNavigate();
 
   const [flightApi, setFlightApi] = useState(false);
   const [hotelsApi, setHotelApi] = useState(false);
-  const UpdatePrivilegeBoxes = [
-    {
-      type: "input",
-      content: "Visa",
-    },
-    {
-      type: "input",
-      content: "Yachts",
-    },
-    {
-      type: "input",
-      content: "Transfer",
-    },
-    {
-      type: "input",
-      content: "SubUser",
-    },
-    {
-      type: "input",
-      content: "Travel Insurance",
-    },
-    {
-      type: "input",
-      content: "Car",
-    },
-  ];
+  //   const ManagePrivilegeBoxes = [
+  //     {
+  //       type: "input",
+  //       content: "Visa",
+  //     },
+  //     {
+  //       type: "input",
+  //       content: "Yachts",
+  //     },
+  //     {
+  //       type: "input",
+  //       content: "Transfer",
+  //     },
+  //     {
+  //       type: "none",
+  //       content: "SubUser",
+  //     },
+  //     {
+  //       type: "input",
+  //       content: "Travel Insurance",
+  //     },
+  //     {
+  //       type: "input",
+  //       content: "Car",
+  //     },
+  //   ];
   const HotelBoxes = [
     {
       type: "input",
@@ -210,7 +211,7 @@ function UpdatePrivilegesSubUser() {
                       onChange={() => handleToggle("Hotels")}
                     />
                   </Container>
-                  {UpdatePrivilegeBoxes.map((item) => (
+                  {PrivilegeBoxes.map((item) => (
                     <CheckBoxComp
                       labelData={item.content}
                       key={item.content}
@@ -358,7 +359,7 @@ function UpdatePrivilegesSubUser() {
             <MDBox mb={2}>
               <FormControl component="fieldset">
                 <FormGroup>
-                  {UpdatePrivilegeBoxes.map((item) => (
+                  {PrivilegeBoxes.map((item) => (
                     <CheckBoxComp
                       labelData={item.content}
                       key={item.content}
@@ -390,4 +391,7 @@ function UpdatePrivilegesSubUser() {
     </DashboardLayout>
   );
 }
-export default UpdatePrivilegesSubUser;
+ManagePrivileges.propTypes = {
+  PrivilegeBoxes: PropTypes.array.isRequired,
+};
+export default ManagePrivileges;

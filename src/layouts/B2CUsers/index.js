@@ -12,194 +12,127 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import swal from "sweetalert";
 import BlockIcon from "@mui/icons-material/Block";
 import FiltrationsArray from "data/FiltrationsArray";
+import { GetActionsList } from "data/GlobalActionsList";
+import { B2CUsersInitialData } from "data/B2C_Users";
 function B2CUsers() {
-  const FieldAarray = [
-    {
-      inputLabel: "status",
-      data: [
-        {
-          value: "active",
-        },
-        {
-          value: "De-active",
-        },
-      ],
-    },
-    {
-      inputLabel: domain_name,
-      data: [
-        {
-          value: ".com",
-        },
-        {
-          value: ".net",
-        },
-      ],
-    },
-    {
-      inputLabel: "Balance",
-      data: [
-        {
-          value: "Balance  One",
-        },
-        {
-          value: "Balance  Two",
-        },
-      ],
-    },
-    {
-      inputLabel: "Balance",
-      data: [
-        {
-          value: "Balance  One",
-        },
-        {
-          value: "Balance  Two",
-        },
-      ],
-    },
-    {
-      inputLabel: number_of_bookings,
-      data: [
-        {
-          value: "One",
-        },
-        {
-          value: "Two",
-        },
-      ],
-    },
-  ];
-  const initialData = [
-    {
-      user_id: 2654,
-      user_name: "Mohamed Gaber",
-      domain_name: ".com",
-      contact: "a",
-      email: "demo@gmail.com",
-      number_of_bookings: 250,
-      status: true,
-    },
-    {
-      user_id: 132132,
-      user_name: "Mohamed Gaber",
-      domain_name: ".com",
-      contact: "b",
-      email: "demo@gmail.com",
-      number_of_bookings: 250,
+  // const FieldAarray = [
+  //   {
+  //     inputLabel: "status",
+  //     data: [
+  //       {
+  //         value: "active",
+  //       },
+  //       {
+  //         value: "De-active",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: domain_name,
+  //     data: [
+  //       {
+  //         value: ".com",
+  //       },
+  //       {
+  //         value: ".net",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: "Balance",
+  //     data: [
+  //       {
+  //         value: "Balance  One",
+  //       },
+  //       {
+  //         value: "Balance  Two",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: "Balance",
+  //     data: [
+  //       {
+  //         value: "Balance  One",
+  //       },
+  //       {
+  //         value: "Balance  Two",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     inputLabel: number_of_bookings,
+  //     data: [
+  //       {
+  //         value: "One",
+  //       },
+  //       {
+  //         value: "Two",
+  //       },
+  //     ],
+  //   },
+  // ];
 
-      status: false,
-    },
-
-    {
-      user_id: 5423,
-      user_name: "Mohamed Gaber",
-      domain_name: ".com",
-      contact: "c",
-      email: "demo@gmail.com",
-      number_of_bookings: 250,
-
-      status: false,
-    },
-
-    {
-      user_id: 512312,
-      user_name: "Mohamed Gaber",
-      domain_name: ".com",
-      contact: "d",
-      email: "demo@gmail.com",
-      number_of_bookings: 250,
-
-      status: true,
-    },
-
-    {
-      user_id: 1966,
-      user_name: "Mohamed Gaber",
-      domain_name: ".com",
-      contact: "e",
-      email: "demo@gmail.com",
-      number_of_bookings: 250,
-      status: false,
-    },
-    {
-      user_id: 8798,
-      user_name: "Mohamed Gaber",
-      domain_name: ".com",
-      contact: "a",
-      email: "demo@gmail.com",
-      number_of_bookings: 250,
-      status: true,
-    },
-    {
-      user_id: 63665,
-      user_name: "Mohamed Gaber",
-      domain_name: ".net",
-      contact: "b",
-      email: "demo@gmail.com",
-      number_of_bookings: 250,
-
-      status: true,
-    },
-
-    {
-      user_id: 58789,
-      user_name: "Mohamed Gaber",
-      domain_name: "net",
-      contact: "c",
-      email: "demo@gmail.com",
-      number_of_bookings: 250,
-
-      status: false,
-    },
-  ];
-  const ActionsList = [
-    {
-      icon: <BookIcon />,
-      content: "View Bookings",
-      action: "/UsersManagement/b2c-users/:Id/ViewBookings",
-    },
-    {
-      icon: <AccountBalanceIcon />,
-      content: "Balance Management",
-      action: "/UsersManagement/b2c-users/:Id/Agent-Deposit-Management",
-    },
-    {
-      icon: <EditIcon />,
-      content: "View & Edit User",
-      action: "",
-    },
-    {
-      icon: <DeleteIcon />,
-      content: "Delete User",
-      action: (Id) =>
-        swal({
-          title: `Delete User ${Id}`,
-          text: "You Sure Click Ok",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        }).then((willDelete) => {
-          if (willDelete) {
-            swal(`User ${Id} Deleted`, {
-              icon: "success",
-            });
-          }
-        }),
-    },
-  ];
+  // const ActionsList = [
+  //   {
+  //     icon: <BookIcon />,
+  //     content: "View Bookings",
+  //     action: "/UsersManagement/b2c-users/:Id/ViewBookings",
+  //   },
+  //   {
+  //     icon: <AccountBalanceIcon />,
+  //     content: "Balance Management",
+  //     action: "/UsersManagement/b2c-users/:Id/Agent-Deposit-Management",
+  //   },
+  //   {
+  //     icon: <EditIcon />,
+  //     content: "View & Edit User",
+  //     action: "",
+  //   },
+  //   {
+  //     icon: <DeleteIcon />,
+  //     content: "Delete User",
+  //     action: (Id) =>
+  //       swal({
+  //         title: `Delete User ${Id}`,
+  //         text: "You Sure Click Ok",
+  //         icon: "warning",
+  //         buttons: true,
+  //         dangerMode: true,
+  //       }).then((willDelete) => {
+  //         if (willDelete) {
+  //           swal(`User ${Id} Deleted`, {
+  //             icon: "success",
+  //           });
+  //         }
+  //       }),
+  //   },
+  // ];
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      {/* <TableData
+      <TableData
         FieldArray={FiltrationsArray({
-          keysList: ["domain_name", "status", "balance", "number_of_bookings"],
-          dataList: initialData,
+          keysList: [
+            "top_level_domain",
+            "status",
+            "balance",
+            "number_of_bookings",
+          ],
+          dataList: B2CUsersInitialData,
         })}
-        initialData={initialData} // Pass the full initial data set/
-        ActionsList={[]}
-      /> */}
+        initialData={B2CUsersInitialData} // Pass the full initial data set/
+        ActionsList={GetActionsList({
+          userType: "b2c-users",
+          keysList: [
+            "view_bookings",
+            "balance_management",
+            "view_and_edit",
+            "delete_user",
+          ],
+        })}
+      />
     </DashboardLayout>
   );
 }

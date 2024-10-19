@@ -25,19 +25,17 @@ const B2CUsersLazy = lazy(() => import("layouts/B2CUsers"));
 const IndividualUsersLazy = lazy(() => import("layouts/IndividualUsers"));
 const AsfarUsersLazy = lazy(() => import("layouts/AsfarUsers"));
 const AddNewUsersLazy = lazy(() => import("layouts/AddNewUser"));
-const SubUsersLazy = lazy(() => import("layouts/b2BUsers/SubUsers.js"));
-const PaymentOptionLazy = lazy(() =>
-  import("layouts/b2BUsers/PaymentOption.js")
-);
-const UpdatePrivilegesLazy = lazy(() =>
-  import("layouts/b2BUsers/UpdatePrivileges.js")
-);
+const SubUsersLazy = lazy(() => import("layouts/b2BUsers/components/SubUsers"));
+const PaymentOptionLazy = lazy(() => import("layouts/PaymentOptions"));
+const UpdatePrivilegesLazy = lazy(() => import("layouts/UpdatePrivileges"));
 const UpdatePrivilegesSubUserLazy = lazy(() =>
-  import("layouts/b2BUsers/UpdatePrivilegesSubUser.js")
+  import("layouts/UpdatePrivilegesSubUser")
 );
-const ViewBookingLazy = lazy(() => import("layouts/b2BUsers/ViewBookings.js"));
-const AgentDepositLazy = lazy(() => import("layouts/b2BUsers/AgentDeposit.js"));
+const ViewAndEditUserLazy = lazy(() => import("layouts/ViewAndEditUser"));
+const ViewBookingLazy = lazy(() => import("layouts/ViewBookings"));
+const AgentDepositLazy = lazy(() => import("layouts/AgentDeposit"));
 const routes = [
+  //    main routes
   {
     type: "collapse",
     name: "Dashboard",
@@ -130,10 +128,11 @@ const routes = [
       </Suspense>
     ),
   },
+  //    b2b routes
   {
     type: "collapse",
     name: "B2b",
-    key: "B2b Users",
+    key: "B2b_Users",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/UsersManagement/b2b-users",
     component: (
@@ -145,7 +144,7 @@ const routes = [
   {
     type: "collapse",
     name: "SubUsers",
-    key: "SubUsers",
+    key: "Sub_Users",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/UsersManagement/b2b-users/:Id/SubUsers",
     component: (
@@ -157,19 +156,7 @@ const routes = [
   {
     type: "collapse",
     name: "PaymentOption",
-    key: "PaymentOption",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagement/b2b-users/:Id/PaymentOption",
-    component: (
-      <Suspense fallback={<LazyLoader />}>
-        <PaymentOptionLazy />
-      </Suspense>
-    ),
-  },
-  {
-    type: "collapse",
-    name: "PaymentOption",
-    key: "PaymentOption",
+    key: "Payment_Option",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/UsersManagement/b2b-users/:Id/PaymentOption/:Agent_Id",
     component: (
@@ -180,10 +167,36 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "UpdatePrivileges",
-    key: "UpdatePrivileges",
+    name: "UpdateUserPrivileges",
+    key: "Update_User_Privileges",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagement/b2b-users/:Id/UpdatePrivileges",
+    route: "/UsersManagement/:route/:Id/UpdatePrivileges/:Agent_Id",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <UpdatePrivilegesSubUserLazy />
+      </Suspense>
+    ),
+  },
+
+  //    global routes
+  {
+    type: "collapse",
+    name: "Asfar Users",
+    key: "Asfar_Users",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagement/:route/:Id/PaymentOption",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <PaymentOptionLazy />
+      </Suspense>
+    ),
+  },
+  {
+    type: "collapse",
+    name: "Update Privileges",
+    key: "Update_Privileges",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagement/:route/:Id/UpdatePrivileges",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <UpdatePrivilegesLazy />
@@ -192,20 +205,8 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "UpdatePrivileges",
-    key: "UpdatePrivileges",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/UsersManagement/b2b-users/:Id/UpdatePrivileges/:Agent_Id",
-    component: (
-      <Suspense fallback={<LazyLoader />}>
-        <UpdatePrivilegesSubUserLazy />
-      </Suspense>
-    ),
-  },
-  {
-    type: "collapse",
-    name: "ViewBooking",
-    key: "ViewBooking",
+    name: "View Booking",
+    key: "View_Booking",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/UsersManagement/:route/:Id/ViewBookings",
     component: (
@@ -216,8 +217,8 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "ViewBooking",
-    key: "ViewBooking",
+    name: "View User Booking",
+    key: "View_User_Booking",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/UsersManagement/:route/:Id/ViewBookings/:Agent_Id",
     component: (
@@ -229,7 +230,7 @@ const routes = [
   {
     type: "collapse",
     name: "Agent Deposit Management",
-    key: "Agent Deposit Management",
+    key: "Agent_Deposit_Management",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/UsersManagement/:route/:Id/Agent-Deposit-Management",
     component: (
@@ -240,8 +241,8 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Agent Deposit Management",
-    key: "Agent Deposit Management",
+    name: "Agent Deposit Management User",
+    key: "Agent_Deposit_Management_User",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/UsersManagement/:route/:Id/Agent-Deposit-Management/:Agent_Id",
     component: (
@@ -252,8 +253,21 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "B2C",
-    key: "B2C Users",
+    name: "View And Edit User",
+    key: "View_And_Edit_User",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/UsersManagement/:route/:Id/ViewAndEditUser",
+    component: (
+      <Suspense fallback={<LazyLoader />}>
+        <ViewAndEditUserLazy />
+      </Suspense>
+    ),
+  },
+  //    b2c routes
+  {
+    type: "collapse",
+    name: "B2C Users",
+    key: "B2C_Users",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/UsersManagement/b2c-users",
     component: (
@@ -262,10 +276,11 @@ const routes = [
       </Suspense>
     ),
   },
+  //    individual routes
   {
     type: "collapse",
     name: "Individual Users",
-    key: "Individual Users",
+    key: "Individual_Users",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/UsersManagement/individual-users",
     component: (
@@ -274,10 +289,11 @@ const routes = [
       </Suspense>
     ),
   },
+  //    asfar routes
   {
     type: "collapse",
     name: "Asfar Users",
-    key: "Asfar Users",
+    key: "Asfar_Users",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/UsersManagement/asfar-users",
     component: (
@@ -286,12 +302,13 @@ const routes = [
       </Suspense>
     ),
   },
+
   {
     type: "collapse",
-    name: "New User",
-    key: "AddNewUser",
+    name: "New Asfar User",
+    key: "Add_New_Asfar_User",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/AddNewUser",
+    route: "/UsersManagement/asfar-users/AddNewUser",
     component: (
       <Suspense fallback={<LazyLoader />}>
         <AddNewUsersLazy />

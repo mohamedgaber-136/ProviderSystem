@@ -32,7 +32,6 @@ const FilterField = ({
   //   let currentData = data; // Start filtering from the data prop
 
   //   // Log current data for debugging
-  //   console.log("Filtering data based on:", selectedValue);
 
   //   if (selectedValue !== "All") {
   //     currentData = data.filter((item) => {
