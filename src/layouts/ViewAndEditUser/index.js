@@ -179,7 +179,7 @@ const ViewAndEditUser = () => {
                   values={values}
                   setFieldValue={setFieldValue}
                   isSubmitting={isSubmitting}
-                  buttonLabel={"Add User"}
+                  buttonLabel={"Update User"}
                 />
               </Container>
             );
