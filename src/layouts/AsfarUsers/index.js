@@ -156,7 +156,7 @@ function AsfarUsers() {
     { first: "email", second: "contact_number", mergeLabel: "contact" },
   ];
 
-  const BtnAdd = "Add Asfar User";
+  const BtnAdd = "Add User";
   return (
     <DashboardLayout>
       <DashboardNavbar />
